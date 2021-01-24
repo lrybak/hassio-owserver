@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Fixes documentation page. Adds screenshots
+
+
 ## 0.2.0
 
 - Upgrades addon-base to 9.1.0
