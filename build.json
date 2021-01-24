@@ -1,0 +1,10 @@
+{
+  "squash": false,
+  "build_from": {
+    "aarch64": "ghcr.io/hassio-addons/base/aarch64:9.1.0",
+    "amd64": "ghcr.io/hassio-addons/base/amd64:9.1.0",
+    "armhf": "ghcr.io/hassio-addons/base/armhf:9.1.0",
+    "armv7": "ghcr.io/hassio-addons/base/armv7:9.1.0"
+  },
+  "args": {}
+}
