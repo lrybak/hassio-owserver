@@ -34,7 +34,7 @@ Please check the **[documentation](https://github.com/lrybak/hassio-owserver/blo
 ![Integrations page](images/screenshot_integrations.jpg)
 ![owhttpd](images/screenshot_owhttpd.jpg)
 
-[version]: https://img.shields.io/badge/version-v0.2.0-blue.svg
+[version]: https://img.shields.io/badge/version-v0.2.1-blue.svg
 [releases]: https://github.com/lrybak/hassio-owserver/releases
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
