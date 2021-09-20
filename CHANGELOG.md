@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Upgrades addon-base to 10.0.2
+- Changes auto_uart to uart for Home Assistant compatibility 
+
 ## 0.2.0
 
 - Upgrades addon-base to 9.1.0
