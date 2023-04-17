@@ -1,5 +1,4 @@
-#!/usr/bin/with-contenv bashio
-
+#!/command/with-contenv bashio
 
 if bashio::config.true 'owhttpd' ;then
     if ! pgrep -x "/opt/owfs/bin/owhttpd" > /dev/null

@@ -1,6 +1,6 @@
 # Home Assistant Add-on: owserver
 
-[![Releases][releases-shield]][releases]
+[![Releases][version]][releases]
 
 ![amd64][amd64-shield]
 ![aarch64][aarch64-shield]
@@ -9,6 +9,15 @@
 ![i386][i386-shield]
 
 Provides owserver to read 1-Wire devices over DS2480B-based bus master serial device..
+
+{% if channel == "edge" %}
+## This is EDGE version! 🔧🔧🔧
+**WARNING:** The software in the edge repository may not be stable and could potentially cause issues on your system. Edge software is typically experimental or under development, and may not have undergone rigorous testing. Use at your own risk and exercise caution when installing or updating packages from the edge repository.
+{% endif %}
+{% if channel == "beta" %}
+## This is BETA version! 🔧🔧🔧
+**WARNING:** The software in the beta repository may not be stable and could potentially cause issues on your system. Beta software is typically a pre-release version of a product that is still undergoing testing and development. Although it has undergone some testing, it may not have undergone the same level of testing as a stable release. Use at your own risk and exercise caution when installing or updating packages from the beta repository.
+{% endif %}
 
 ## About
 
@@ -19,13 +28,13 @@ This addon provides you owserver instance to read 1-Wire devices over DS2480B-ba
 ### Installation
 
 1. Access your Home Assistant, go to **Add-ons** -> **Add-on Store** and add this URL as an additional repository: 
-`https://github.com/lrybak/addon-repository`
+`{% if channel == "edge" %}https://github.com/lrybak/addon-repository-edge{% elif channel == "beta" %}https://github.com/lrybak/addon-repository-beta{% else %}https://github.com/lrybak/addon-repository{% endif %}`
 1. Find the "owserver (1-Wire)" add-on and click the "INSTALL" button.
 1. Configure the add-on and click on "START". With default configuration addon starts with fake (mocked) devices.
 1. Add to Home Assistant through the Integrations. Go to Integrations, Add Integration, Choose 1-Wire
     - Host: `provide add-on's hostname (from add-on details page)`
     - Port: `4304` _(default)_
-1. That's it. On the integrations page wou will find 1-Wire integration with discovered devices.
+1. That's it. On the integrations page you will find 1-Wire integration with discovered devices.
 
 ### Configuration
 Please check the **[full documentation page](https://github.com/lrybak/hassio-owserver/blob/master/DOCS.md)**.
@@ -34,11 +43,15 @@ Please check the **[full documentation page](https://github.com/lrybak/hassio-ow
 
 ![Integration setup 1](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_setup1.png)
 ![Integration setup 2](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_setup2.png)
+![Integration setup 3](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_setup3.jpg)
 ![Integrations page](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_integrations.jpg)
 ![owhttpd](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_owhttpd.jpg)
 
-[releases-shield]: https://img.shields.io/github/release/lrybak/hassio-owserver.svg
+[version]: https://img.shields.io/badge/version-{{ version }}-blue.svg
 [releases]: https://github.com/lrybak/hassio-owserver/releases
+[addons-repository]: https://github.com/lrybak/addon-repository
+[addons-repository-beta]: https://github.com/lrybak/addon-repository-beta
+[addons-repository-edge]: https://github.com/lrybak/addon-repository-edge
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
