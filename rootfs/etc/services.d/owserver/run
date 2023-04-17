@@ -1,5 +1,4 @@
-#!/usr/bin/with-contenv bashio
-
+#!/command/with-contenv bashio
 
 if ! pgrep -x "/opt/owfs/bin/owserver" > /dev/null
 then
