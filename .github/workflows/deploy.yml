@@ -38,6 +38,8 @@ jobs:
       - name: 🚀 Run add-on information action
         id: information
         uses: frenck/action-addon-information@v1.4.2
+        with:
+          path: "./"
       - name: ℹ️ Gather version and environment
         id: release
         run: |
