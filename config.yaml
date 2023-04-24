@@ -19,7 +19,7 @@ options:
 schema:
   owhttpd: bool
   device: "device"
-  device_type: list(serial or i2c|usb|fake)
+  device_type: list(serial_or_i2c|usb|fake)
   temperature_scale: list(Celsius|Fahrenheit|Kelvin|Rankine)
   debug: "bool?"
 ingress: true
