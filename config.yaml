@@ -12,13 +12,14 @@ arch:
   - armhf
   - armv7
 boot: auto  
-auto_uart: true
+uart: true
 options:
   owhttpd: true
-  device: ""
 schema:
   owhttpd: bool
-  device: str?
+  device: "device"
+  device_type: list(serial or i2c|usb|fake)
+  debug: "bool?"
 ingress: true
 panel_icon: mdi:alpha-w-box
 image: ghcr.io/lrybak/owserver/{arch}
