@@ -12,13 +12,16 @@ arch:
   - armhf
   - armv7
 boot: auto  
-auto_uart: true
+uart: true
 options:
   owhttpd: true
-  device: ""
+  temperature_scale: Celsius
 schema:
   owhttpd: bool
-  device: str?
+  device: "device"
+  device_type: list(serial_or_i2c|usb|fake)
+  temperature_scale: list(Celsius|Fahrenheit|Kelvin|Rankine)
+  debug: "bool?"
 ingress: true
 panel_icon: mdi:alpha-w-box
 image: ghcr.io/lrybak/owserver/{arch}

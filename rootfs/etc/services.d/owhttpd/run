@@ -3,6 +3,8 @@
 if bashio::config.true 'owhttpd' ;then
     if ! pgrep -x "/opt/owfs/bin/owhttpd" > /dev/null
     then
+        bashio::log.info "Wait until owserver is up and running..."
+        bashio::net.wait_for 4304
         bashio::log.info "Starting owhttpd..."
         exec /opt/owfs/bin/owhttpd -r -c /etc/owfs.conf
     fi

@@ -2,6 +2,11 @@
 
 if ! pgrep -x "/opt/owfs/bin/owserver" > /dev/null
 then
-    bashio::log.info "Starting owserver..."
-    exec /opt/owfs/bin/owserver -c /etc/owfs.conf
+    if bashio::config.true 'debug' ;then
+        bashio::log.info "Starting owserver with debug..."
+        exec /opt/owfs/bin/owserver --debug -c /etc/owfs.conf
+    else
+        bashio::log.info "Starting owserver..."
+        exec /opt/owfs/bin/owserver -c /etc/owfs.conf
+    fi
 fi
