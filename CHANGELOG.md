@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1-rc1
+
+- Add device type selector (usb)
+- Add debug mode for owserver
+- Add temperature scale selector
+- Change auto_uart to uart to get rid of home assistant warning
+- Updated documentation
+
 ## 0.3.0
 
 This version aims to update the add-on installation process. Currently, users have to manually add the repository https://github.com/lrybak/hassio-owserver/ to install the add-on.
