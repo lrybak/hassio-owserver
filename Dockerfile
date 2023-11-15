@@ -5,9 +5,9 @@ ENV LANG C.UTF-8
 
 RUN apk update
 RUN apk add --no-cache --virtual .build-deps alpine-keys bash automake make git rsync tar gcc g++ \
-  binutils libgcc libstdc++ libgfortran readline readline-dev python3-dev dev86 m4 libtool autoconf swig \
+  binutils libstdc++ libgfortran readline readline-dev python3-dev dev86 m4 libtool autoconf swig \
   linux-headers build-base \
-  && apk add --no-cache libftdi1-dev libusb libusb-dev \
+  && apk add --no-cache libftdi1-dev libusb libusb-dev libgcc \
   && git clone --single-branch --branch v3.2p4 --depth 1 https://github.com/owfs/owfs /owfs-code \
   && cd /owfs-code \
   && git pull \

@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.3.1-rc1
+## 0.3.2
+
+- Update hassio-addons/addon-base to v14.3.2
+- Fixes #5
+
+## 0.3.1
 
 - Add device type selector (usb)
 - Add debug mode for owserver
