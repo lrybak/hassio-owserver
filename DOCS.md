@@ -30,6 +30,7 @@ Specify owserver device.
 Specify owserver device_type from the options below:
 - serial_or_i2c device
 - usb device
+- ha7net device
 - fake device (random simulated device)
 
 ### Option: `temperature_scale`
@@ -39,6 +40,10 @@ Specify temperature scale used by owserver from the options below:
 - Fahrenheit 
 - Kelvin 
 - Rankine 
+
+### Option: `ha7net_server`
+
+Specify ha7net server. Use it with ha7net device only.
 
 ### Option: `debug`
 
