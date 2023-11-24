@@ -6,8 +6,9 @@ ENV LANG C.UTF-8
 RUN apk update
 RUN apk add --no-cache --virtual .build-deps alpine-keys bash automake make git rsync tar gcc g++ \
   binutils libstdc++ libgfortran readline readline-dev python3-dev dev86 m4 libtool autoconf swig \
-  linux-headers build-base \
+  linux-headers build-base util-linux \
   && apk add --no-cache libftdi1-dev libusb libusb-dev libgcc \
+  && CPUS=`lscpu | grep -E '^CPU\(' |awk '{print $2}'` \
   && git clone --single-branch --branch v3.2p4 --depth 1 https://github.com/owfs/owfs /owfs-code \
   && cd /owfs-code \
   && git pull \
@@ -39,7 +40,7 @@ RUN apk add --no-cache --virtual .build-deps alpine-keys bash automake make git 
     --enable-ftdi \
     --enable-usb \
     --enable-owshell \
-  && make && make install \
+  && make -j $CPUS && make install \
   && cd / && rm -rf /owfs-code && apk del .build-deps
 	
 # Copy data for add-on
