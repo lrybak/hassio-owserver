@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3
+
+- Feature request: Make it working with HA7NET devices #13
+
 ## 0.3.2
 
 - Update hassio-addons/addon-base to v14.3.2
