@@ -13,6 +13,14 @@ if  bashio::var.equals "${device_type}" "fake"; then
 elif bashio::var.equals "${device_type}" "usb"; then
     bashio::log.info "Configuring usb device"
     sed -i "s/%%device%%/usb = all/g" /etc/owfs.conf
+elif bashio::var.equals "${device_type}" "ha7net"; then
+    if  bashio::config.exists "ha7net_server"; then
+        bashio::log.info "Configuring ha7net device"
+        sed -i "s/%%device%%/ha7net = $(bashio::config 'ha7net_server')/g" /etc/owfs.conf
+    else
+        bashio::log.error "No ha7net server provided, using FAKE device instead!"
+        sed -i "s/%%device%%/FAKE = DS18B20,DS2405/g" /etc/owfs.conf
+    fi
 else
     bashio::log.info "Configuring ${device} device"
     device=$(bashio::string.replace ${device} '/' '\/')

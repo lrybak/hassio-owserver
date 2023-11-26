@@ -18,10 +18,11 @@ options:
   temperature_scale: Celsius
 schema:
   owhttpd: bool
-  device: "device"
-  device_type: list(serial_or_i2c|usb|fake)
+  device: device
+  device_type: list(serial_or_i2c|usb|ha7net|fake)
   temperature_scale: list(Celsius|Fahrenheit|Kelvin|Rankine)
-  debug: "bool?"
+  ha7net_server: str?
+  debug: bool?
 ingress: true
 panel_icon: mdi:alpha-w-box
 image: ghcr.io/lrybak/owserver/{arch}
