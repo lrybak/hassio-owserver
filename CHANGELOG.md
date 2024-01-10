@@ -2,7 +2,7 @@
 
 ## 0.3.6
 
-- Update hassio-addons/addon-base to v15.0.3
+- Update hassio-addons/addon-base to v15.0.4
 
 ## 0.3.5
 
