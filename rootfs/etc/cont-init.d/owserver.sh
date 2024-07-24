@@ -21,6 +21,9 @@ elif bashio::var.equals "${device_type}" "ha7net"; then
         bashio::log.error "No ha7net server provided, using FAKE device instead!"
         sed -i "s/%%device%%/FAKE = DS18B20,DS2405/g" /etc/owfs.conf
     fi
+elif  bashio::var.equals "${device_type}" "w1"; then
+    bashio::log.info "Configuring w1 (direct access via GPIO on RasPi)"
+    sed -i "s/%%device%%/w1/g" /etc/owfs.conf
 else
     bashio::log.info "Configuring ${device} device"
     device=$(bashio::string.replace ${device} '/' '\/')

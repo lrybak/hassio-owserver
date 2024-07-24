@@ -23,7 +23,7 @@ owhttpd server is exposed via **Ingress (Open Web UI)**
 
 ### Option: `device`
 
-Specify owserver device. 
+Specify owserver device, if using the "serial_or_i2c" type.
 
 ### Option: `device_type`
 
@@ -31,7 +31,10 @@ Specify owserver device_type from the options below:
 - serial_or_i2c device
 - usb device
 - ha7net device
+- w1 device (direct access via GPIO on RasPi)
 - fake device (random simulated device)
+
+Specify "/dev/null" as device, if using usb/ha7net/w1/fake type.
 
 ### Option: `temperature_scale`
 
