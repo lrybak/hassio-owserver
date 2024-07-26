@@ -3,7 +3,7 @@ name: owserver (1-wire)
 version: 0.3.7
 slug: owserver
 description: onewire server to read 1-Wire devices
-url: https://github.com/lrybak/hassio-owserver
+url: https://github.com/s-anderss/hassio-owserver
 startup: system
 init: false
 arch: 
@@ -25,4 +25,4 @@ schema:
   debug: bool?
 ingress: true
 panel_icon: mdi:alpha-w-box
-image: ghcr.io/lrybak/owserver/{arch}
+image: ghcr.io/s-anderss/owserver/{arch}
