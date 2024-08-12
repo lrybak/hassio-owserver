@@ -40,6 +40,7 @@ RUN apk add --no-cache --virtual .build-deps alpine-keys bash automake make git 
     --enable-ftdi \
     --enable-usb \
     --enable-owshell \
+    --enable-w1 \
   && make -j $CPUS && make install \
   && cd / && rm -rf /owfs-code && apk del .build-deps
 	
