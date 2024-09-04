@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.9
+
+- Update hassio-addons/addon-base to v16.2.1
+- Bump Github Actions version
+
+## 0.3.8
+
+- Added support for special "w1" device
+
 ## 0.3.7
 
 - Update hassio-addons/addon-base to v15.0.9
