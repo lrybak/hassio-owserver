@@ -13,6 +13,8 @@ arch:
   - armv7
 boot: auto  
 uart: true
+privileged:
+  - NET_RAW
 options:
   owhttpd: true
   temperature_scale: Celsius
