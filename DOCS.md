@@ -50,7 +50,7 @@ Specify ha7net server. Use it with ha7net device only.
 
 ### Option: `debug`
 
-Specify debug mode for owserver.
+Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1wire connectivity_
 
 
 ## Home Assistant integration
