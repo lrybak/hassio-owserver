@@ -2,7 +2,7 @@
 
 ## 0.3.9
 
-- Update hassio-addons/addon-base to v16.3.0
+- Update hassio-addons/addon-base to v16.3.2
 - Bump Github Actions version
 
 ## 0.3.8
