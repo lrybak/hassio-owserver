@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.0
+- Added option to support PBM (ElabNET's Professioinal Bumster PBM-01) by @SamGamdschie in https://github.com/lrybak/hassio-owserver/pull/27
+
 ## 0.3.9
 
 - Update hassio-addons/addon-base to v16.3.2
