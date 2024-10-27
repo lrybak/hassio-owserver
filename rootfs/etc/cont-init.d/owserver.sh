@@ -7,6 +7,12 @@ device=$(bashio::config 'device')
 device_type=$(bashio::config 'device_type')
 temperature_scale=$(bashio::config 'temperature_scale')
 
+# Generate owfs config file
+# tempio \
+#     -conf /data/options.json \
+#     -template /etc/owfs.template.conf \
+#     -out /etc/owfs.conf
+
 if  bashio::var.equals "${device_type}" "fake"; then
     bashio::log.info "Configuring fake device"
     sed -i "s/%%device%%/FAKE = DS18B20,DS2405/g" /etc/owfs.conf
