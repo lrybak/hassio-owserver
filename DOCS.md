@@ -1,41 +1,68 @@
 # owserver
 
-The addon provides owserver to read 1-Wire devices over serial/i2c or usb device.
+The addon provides owserver enabling access to 1-Wire sensors over serial, i2c, usb, w1, pbm, ha7net fake devices.
 
 ## Configuration
 
 **Note**: _Remember to restart the add-on whenever configuration change._
 
-Example add-on configuration (YAML mode):
+Example add-on configurations:
 
 ```yaml
-owhttpd: true
+devices:
+  - device_type: serial
+    device: /dev/ttyUSB0
+owhttpd: bool
 temperature_scale: Celsius
-device_type: serial_or_i2c
-device: /dev/serial/by-id/usb-MERA-PROJEKT_USB__-__1Wire__MP00202__MPVVSOBE-if00-port0
 debug: false
 ```
+
+```yaml
+devices:
+  - device_type: ha7net
+    ha7net_server: 192.168.50.1
+  - device_type: ha7net
+    ha7net_server: 192.168.50.2
+owhttpd: bool
+temperature_scale: Celsius
+debug: false
+```
+**Note**, these are just example configurations, don't copy, please create your own.
+
+
+### Option: `devices`
+
+This option allows you to specify list of 1-Wire devices.
+
+#### Sub-option: `device_type`
+
+Specify the owserver device type from the following options:
+- serial
+- i2c
+- usb
+- pbm (ElabNET's Professioinal Bumster PBM-01)
+- ha7net
+- w1 (direct access via GPIO on RasPi)
+- fake (random simulated device)
+
+#### Sub-option: `device`
+
+Specify the device.
+This is mandatory option only for following **device_type**:
+- serial
+- i2c
+- pbm
+
+#### Sub-option: `ha7net_server`
+
+Specify the address of the ha7net device.
+This is mandatory option only for following **device_type**:
+- ha7net
 
 ### Option: `owhttpd`
 
 Enable to start the embedded owhttpd server _(Default true)_.
 owhttpd server is exposed via **Ingress (Open Web UI)**
-
-### Option: `device`
-
-Specify owserver device, if using the "serial_or_i2c" type or "pbm" type.
-
-### Option: `device_type`
-
-Specify owserver device_type from the options below:
-- serial_or_i2c device
-- usb device
-- pbm device (ElabNET's Professioinal Bumster PBM-01)
-- ha7net device
-- w1 device (direct access via GPIO on RasPi)
-- fake device (random simulated device)
-
-Specify "/dev/null" as device, if using usb/ha7net/w1/fake type.
 
 ### Option: `temperature_scale`
 
@@ -45,13 +72,9 @@ Specify temperature scale used by owserver from the options below:
 - Kelvin
 - Rankine
 
-### Option: `ha7net_server`
-
-Specify ha7net server. Use it with ha7net device only.
-
 ### Option: `debug`
 
-Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1wire connectivity_
+Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_
 
 
 ## Home Assistant integration

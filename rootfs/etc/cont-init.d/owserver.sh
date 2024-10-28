@@ -1,38 +1,27 @@
 #!/command/with-contenv bashio
 
-declare device
-declare device_type
-declare temperature_scale
-device=$(bashio::config 'device')
-device_type=$(bashio::config 'device_type')
-temperature_scale=$(bashio::config 'temperature_scale')
-
-if  bashio::var.equals "${device_type}" "fake"; then
-    bashio::log.info "Configuring fake device"
-    sed -i "s/%%device%%/FAKE = DS18B20,DS2405/g" /etc/owfs.conf
-elif bashio::var.equals "${device_type}" "usb"; then
-    bashio::log.info "Configuring usb device"
-    sed -i "s/%%device%%/usb = all/g" /etc/owfs.conf
-elif bashio::var.equals "${device_type}" "pbm"; then
-    bashio::log.info "Configuring Professional Busmaster device at ${device}"
-    device=$(bashio::string.replace ${device} '/' '\/')
-    sed -i "s/%%device%%/usb = all\nserver: usb = scan\npbm = ${device}/g" /etc/owfs.conf
-elif bashio::var.equals "${device_type}" "ha7net"; then
-    if  bashio::config.exists "ha7net_server"; then
-        bashio::log.info "Configuring ha7net device"
-        sed -i "s/%%device%%/ha7net = $(bashio::config 'ha7net_server')/g" /etc/owfs.conf
-    else
-        bashio::log.error "No ha7net server provided, using FAKE device instead!"
-        sed -i "s/%%device%%/FAKE = DS18B20,DS2405/g" /etc/owfs.conf
+# validating user's options
+for device in $(bashio::config "devices|keys"); do
+    if bashio::config.equals "devices[${device}].device_type" "serial" || \
+        bashio::config.equals "devices[${device}].device_type" "i2c" || \
+        bashio::config.equals "devices[${device}].device_type" "pbm"; then
+        if ! bashio::config.has_value "devices[${device}].device"; then
+            bashio::config.require "device" "Please set the device"
+        fi
     fi
-elif  bashio::var.equals "${device_type}" "w1"; then
-    bashio::log.info "Configuring w1 (direct access via GPIO on RasPi)"
-    sed -i "s/%%device%%/w1/g" /etc/owfs.conf
-else
-    bashio::log.info "Configuring ${device} device"
-    device=$(bashio::string.replace ${device} '/' '\/')
-    sed -i "s/%%device%%/device = ${device}/g" /etc/owfs.conf
-fi
+    if bashio::config.equals "devices[${device}].device_type" "ha7net"; then
+        if ! bashio::config.has_value "devices[${device}].ha7net_server"; then
+            bashio::config.require "device" "Please set the ha7net server address"
+        fi
+    fi
+done
 
-bashio::log.info "Configuring temperature scale: ${temperature_scale}"
-sed -i "s/%%temperature_scale%%/${temperature_scale}/g" /etc/owfs.conf
+# generating owfs config file
+tempio \
+    -conf /data/options.json \
+    -template /etc/owfs.template.conf \
+    -out /etc/owfs.conf
+
+owfs_generated_config=$(cat /etc/owfs.conf)
+bashio::log.info "Generated owfs.config file:"
+bashio::log.info "${owfs_generated_config}"

@@ -1,8 +1,8 @@
 ---
 name: owserver (1-wire)
-version: 0.3.6
+version: 0.5.0
 slug: owserver
-description: onewire server to read 1-Wire devices
+description: onewire server to read 1-Wire devices+
 url: https://github.com/lrybak/hassio-owserver
 startup: system
 init: false
@@ -14,14 +14,18 @@ arch:
 boot: auto
 uart: true
 options:
+  devices:
+    - device_type: device_type
+      device: device
   owhttpd: true
   temperature_scale: Celsius
 schema:
+  devices:
+    - device_type: list(serial|i2c|usb|pbm|ha7net|w1|fake)
+      device: device?
+      ha7net_server: match(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)?
   owhttpd: bool
-  device: device
-  device_type: list(serial_or_i2c|usb|pbm|ha7net|w1|fake)
   temperature_scale: list(Celsius|Fahrenheit|Kelvin|Rankine)
-  ha7net_server: str?
   debug: bool?
 ingress: true
 panel_icon: mdi:alpha-w-box
