@@ -1,41 +1,57 @@
 # owserver
 
-The addon provides owserver to read 1-Wire devices over serial/i2c or usb device.
+The addon provides owserver enabling access to 1-Wire sensors over serial, i2c, usb, w1, pbm, ha7net fake devices.
 
 ## Configuration
 
 **Note**: _Remember to restart the add-on whenever configuration change._
 
-Example add-on configuration (YAML mode):
+Example add-on configuration:
 
 ```yaml
-owhttpd: true
+devices:
+  - device_type: serial
+    device: /dev/ttyUSB0
+owhttpd: bool
 temperature_scale: Celsius
-device_type: serial_or_i2c
-device: /dev/serial/by-id/usb-MERA-PROJEKT_USB__-__1Wire__MP00202__MPVVSOBE-if00-port0
 debug: false
 ```
+**Please note**, this is just an example configuration, please create your own
 
 ### Option: `owhttpd`
 
 Enable to start the embedded owhttpd server _(Default true)_.
 owhttpd server is exposed via **Ingress (Open Web UI)**
 
-### Option: `device`
+### Option: `devices`
 
-Specify owserver device, if using the "serial_or_i2c" type or "pbm" type.
+This option allows you to specify list of 1-Wire interfaces.
 
-### Option: `device_type`
+#### Sub-option: `device_type`
 
-Specify owserver device_type from the options below:
-- serial_or_i2c device
-- usb device
-- pbm device (ElabNET's Professioinal Bumster PBM-01)
-- ha7net device
-- w1 device (direct access via GPIO on RasPi)
-- fake device (random simulated device)
+Specify the owserver device_type from the following options:
+- serial
+- i2c
+- usb
+- pbm (ElabNET's Professioinal Bumster PBM-01)
+- ha7net
+- w1 (direct access via GPIO on RasPi)
+- fake (random simulated device)
 
-Specify "/dev/null" as device, if using usb/ha7net/w1/fake type.
+#### Sub-option: `device`
+
+Specify the device
+This is mandatory option only for following **device_type**:
+- serial
+- i2c
+- pbm
+
+#### Sub-option: `ha7net_server`
+
+Specify the address of the ha7net device.
+This is mandatory option only for following **device_type**:
+- ha7net
+
 
 ### Option: `temperature_scale`
 
@@ -44,10 +60,6 @@ Specify temperature scale used by owserver from the options below:
 - Fahrenheit
 - Kelvin
 - Rankine
-
-### Option: `ha7net_server`
-
-Specify ha7net server. Use it with ha7net device only.
 
 ### Option: `debug`
 

@@ -1,7 +1,7 @@
 #!/command/with-contenv bashio
 
+# validating user's options
 for device in $(bashio::config "devices|keys"); do
-
     if bashio::config.equals "devices[${device}].device_type" "serial" || \
         bashio::config.equals "devices[${device}].device_type" "i2c" || \
         bashio::config.equals "devices[${device}].device_type" "pbm"; then
@@ -16,6 +16,7 @@ for device in $(bashio::config "devices|keys"); do
     fi
 done
 
+# generating owfs config file
 tempio \
     -conf /data/options.json \
     -template /etc/owfs.template.conf \

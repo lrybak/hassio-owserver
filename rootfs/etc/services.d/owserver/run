@@ -3,7 +3,8 @@
 if ! pgrep -x "/opt/owfs/bin/owserver" > /dev/null
 then
     if bashio::config.true 'debug' ;then
-        bashio::log.info "Starting owserver with debug..."
+        bashio::log.info "Starting owserver with debug mode..."
+        bashio::log.notice "Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1wire connectivity!"
         exec /opt/owfs/bin/owserver --debug -c /etc/owfs.conf
     else
         bashio::log.info "Starting owserver..."
