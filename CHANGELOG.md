@@ -7,7 +7,7 @@
 ### Breaking change: read before you upgrade!
 
 This update introduces the ability to add multiple 1-Wire devices which required changes to to add-on configuration.
-Devices now need to be specified as a YAML list. Please refer to the documentation page for more details.
+Devices now need to be specified as a YAML list. Please refer to the documentation page for more details before you upgrade.
 
 ## 0.4.0
 - Added option to support PBM (ElabNET's Professioinal Bumster PBM-01) by @SamGamdschie in https://github.com/lrybak/hassio-owserver/pull/27
