@@ -12,6 +12,8 @@ arch:
   - armhf
   - armv7
 boot: auto
+discovery:
+  - onewire
 uart: true
 options:
   devices:
@@ -30,5 +32,3 @@ schema:
 ingress: true
 panel_icon: mdi:alpha-w-box
 image: ghcr.io/lrybak/owserver/{arch}
-discovery:
-  - onewire
