@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+- Added new device type "passive" for special serial devices.
+- Added possibility to optionally specify device name of usb device.
+
 ## 0.5.0
 - Ability to add multiple 1-Wire devices - **breaking change**, requires addon re-configuration
 - Update hassio-addons/addon-base to v15.3.4

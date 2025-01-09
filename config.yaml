@@ -21,7 +21,7 @@ options:
   temperature_scale: Celsius
 schema:
   devices:
-    - device_type: list(serial|i2c|usb|pbm|ha7net|w1|fake)
+    - device_type: list(serial|passive|i2c|usb|pbm|ha7net|w1|fake)
       device: device?
       ha7net_server: match(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)?
   owhttpd: bool
