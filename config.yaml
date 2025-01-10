@@ -12,6 +12,8 @@ arch:
   - armhf
   - armv7
 boot: auto
+discovery:
+  - onewire
 uart: true
 options:
   devices:
