@@ -1,0 +1,21 @@
+#!/command/with-contenv bashio
+# shellcheck shell=bash
+# ==============================================================================
+# Sends discovery information to Home Assistant.
+# ==============================================================================
+declare config
+
+# Wait for OWServer to become available
+bashio::net.wait_for 4304 localhost 1800
+
+config=$(\
+    bashio::var.json \
+        host "$(hostname)" \
+        port "^4304" \
+)
+
+if bashio::discovery "onewire" "${config}" > /dev/null; then
+    bashio::log.info "Successfully send discovery information to Home Assistant."
+else
+    bashio::log.error "Discovery message to Home Assistant failed!"
+fi
