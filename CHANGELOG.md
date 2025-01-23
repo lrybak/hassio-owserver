@@ -1,8 +1,14 @@
 # Changelog
 
+## 0.6.0
+- Send discovery information to Home Assistant.
+- Add a new device type "passive" for special serial devices.
+- Add possibility to optionally specify device name of usb device.
+- Update hassio-addons/addon-base to v17.1.0
+
 ## 0.5.0
 - Ability to add multiple 1-Wire devices - **breaking change**, requires addon re-configuration
-- Update hassio-addons/addon-base to v15.3.4
+- Update hassio-addons/addon-base to v16.3.4
 
 ### Breaking change: read before you upgrade!
 
