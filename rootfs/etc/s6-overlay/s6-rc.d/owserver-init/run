@@ -3,6 +3,7 @@
 # validating user's options
 for device in $(bashio::config "devices|keys"); do
     if bashio::config.equals "devices[${device}].device_type" "serial" || \
+        bashio::config.equals "devices[${device}].device_type" "passive" || \
         bashio::config.equals "devices[${device}].device_type" "i2c" || \
         bashio::config.equals "devices[${device}].device_type" "pbm"; then
         if ! bashio::config.has_value "devices[${device}].device"; then

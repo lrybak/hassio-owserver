@@ -38,6 +38,7 @@ This option allows you to specify list of 1-Wire devices.
 
 Specify the owserver device type from the following options:
 - serial
+- passive (passive serial device)
 - i2c
 - usb
 - pbm (ElabNET's Professioinal Bumster PBM-01)
@@ -50,6 +51,7 @@ Specify the owserver device type from the following options:
 Specify the device.
 This is mandatory option only for following **device_type**:
 - serial
+- passive
 - i2c
 - pbm
 
