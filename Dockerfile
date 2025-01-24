@@ -41,7 +41,7 @@ RUN apk add --no-cache --virtual .build-deps alpine-keys bash automake make git 
     --enable-usb \
     --enable-owshell \
     --enable-w1 \
-  && make -j $CPUS && make install \
+  && make -j 1 && make install \
   && cd / && rm -rf /owfs-code && apk del .build-deps
 	
 # Copy data for add-on
