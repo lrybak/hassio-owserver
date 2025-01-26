@@ -5,6 +5,8 @@
 - Add a new device type "passive" for special serial devices.
 - Add possibility to optionally specify device name of usb device.
 - Update hassio-addons/addon-base to v16.3.6
+- Updated service management to handle dependencies correctly by migrating from the legacy system to the s6-rc way.
+- Resolved segmentation fault issues during image builds by switching the base image of action: docker/setup-qemu-action to tonistiigi/binfmt:qemu-v8.1.5. The default latest image, previously used, was causing segfaults (see [tonistiigi/binfmt#215](https://github.com/tonistiigi/binfmt/issues/215)).
 
 ## 0.5.0
 - Ability to add multiple 1-Wire devices - **breaking change**, requires addon re-configuration
