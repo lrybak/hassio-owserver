@@ -85,4 +85,5 @@ Specify debug mode for owserver. _Please note that once DEBUG mode is enabled yo
 1. Add to Home Assistant through the Integrations. Go to Integrations, Add Integration, Choose 1-Wire
     - Host: `provide add-on's hostname (from add-on details page)`
     - Port: `4304` _(default)_
-1. That's it. On the integrations page wou will find 1-Wire integration with discovered devices.
+1. ... or use Home Asistant auto discovery (since 2025.2.0). Go to Integrations, find discovered addon and Add it.
+1. That's it. On the integrations page wou will find 1-Wire integration with 1-Wire devices.
