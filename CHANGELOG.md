@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.1
+- Update hassio-addons/addon-base to v17.1.5
+
 ## 0.6.0
 - Send discovery information to Home Assistant.
 - Add a new device type "passive" for special serial devices.
