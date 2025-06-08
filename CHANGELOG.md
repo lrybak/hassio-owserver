@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2
+- Update hassio-addons/addon-base to v17.2.5
+- Add a new device type "link".
+
 ## 0.6.1
 - Update hassio-addons/addon-base to v17.2.1
 
