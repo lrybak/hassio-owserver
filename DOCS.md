@@ -12,7 +12,7 @@ Example add-on configurations:
 devices:
   - device_type: serial
     device: /dev/ttyUSB0
-owhttpd: bool
+owhttpd: true
 temperature_scale: Celsius
 debug: false
 ```
@@ -23,7 +23,7 @@ devices:
     ha7net_server: 192.168.50.1
   - device_type: ha7net
     ha7net_server: 192.168.50.2
-owhttpd: bool
+owhttpd: true
 temperature_scale: Celsius
 debug: false
 ```
