@@ -19,6 +19,7 @@ Addon has been tested with
 - [MERA-PROJEKT MP00206-P](http://www.meraprojekt.com.pl/mp00206-p.html)
 - [ElabNET's Professional Busmaster PBM-01](https://shop.elabnet.de/en/1-wire/series/h/1-wire-professional-bus-master-pbm01-usb_812_2073)
 - [HA7Net](https://www.embeddeddatasystems.com/HA7Net--Ethernet-1-Wire-Host-Adapter_p_22.html) 
+- DS9490R USB 1-Wire (blue USB to RJ11 dongle)
 
 but shoud work well with other serial/i2c/usb/ha7net devices. Please let me know what device you're using so I will update device list for further reference.
 
