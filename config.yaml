@@ -22,6 +22,7 @@ options:
   owhttpd: true
   temperature_scale: Celsius
 schema:
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
   devices:
     - device_type: list(serial|passive|i2c|usb|pbm|ha7net|w1|link|fake)
       device: device?
