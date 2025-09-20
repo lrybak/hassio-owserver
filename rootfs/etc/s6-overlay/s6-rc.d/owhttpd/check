@@ -1,0 +1,7 @@
+#!/command/with-contenv bashio
+
+if bashio::config.true 'owhttpd'; then
+    exit 0
+else
+    exit 1
+fi
