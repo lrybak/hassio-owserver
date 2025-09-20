@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.3
+- Update hassio-addons/addon-base to v18.1.1
+- Change the way of checking the owhttpd config parameter (fixes #42)
+- Updated documentation
+
 ## 0.6.2
 - Update hassio-addons/addon-base to v17.2.5
 - Add a new device type "link".
