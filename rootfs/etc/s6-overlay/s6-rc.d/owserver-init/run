@@ -10,9 +10,11 @@ for device in $(bashio::config "devices|keys"); do
             bashio::config.require "device" "Please set the device"
         fi
     fi
-    if bashio::config.equals "devices[${device}].device_type" "ha7net"; then
-        if ! bashio::config.has_value "devices[${device}].ha7net_server"; then
-            bashio::config.require "device" "Please set the ha7net server address"
+    if bashio::config.equals "devices[${device}].device_type" "ha7net" || \
+        bashio::config.equals "devices[${device}].device_type" "enet" || \
+        bashio::config.equals "devices[${device}].device_type" "etherweather"; then
+        if ! bashio::config.has_value "devices[${device}].server"; then
+            bashio::config.require "device" "Please set the server address"
         fi
     fi
 done

@@ -20,9 +20,9 @@ debug: false
 ```yaml
 devices:
   - device_type: ha7net
-    ha7net_server: 192.168.50.1
-  - device_type: ha7net
-    ha7net_server: 192.168.50.2
+    server: 192.168.50.1
+  - device_type: enet
+    server: 192.168.50.2:8080
 owhttpd: true
 temperature_scale: Celsius
 debug: false
@@ -43,6 +43,9 @@ Specify the owserver device type from the following options:
 - usb
 - pbm (ElabNET's Professioinal Bumster PBM-01)
 - ha7net
+- enet
+- etherweather
+- link
 - w1 (direct access via GPIO on RasPi)
 - fake (random simulated device)
 
@@ -55,11 +58,13 @@ This is mandatory option only for following **device_type**:
 - i2c
 - pbm
 
-#### Sub-option: `ha7net_server`
+#### Sub-option: `server`
 
-Specify the address of the ha7net device.
+Specify the address of the ha7net, enet, etherweather device.
 This is mandatory option only for following **device_type**:
 - ha7net
+- enet
+- etherweather
 
 ### Option: `owhttpd`
 
