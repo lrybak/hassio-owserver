@@ -4,9 +4,6 @@
 
 ![amd64][amd64-shield]
 ![aarch64][aarch64-shield]
-![armhf][armhf-shield]
-![armv7][armv7-shield]
-![i386][i386-shield]
 
 Provides owserver to read 1-Wire devices over DS2480B-based bus master serial device..
 
@@ -51,6 +48,3 @@ Please check the **[full documentation page](https://github.com/lrybak/hassio-ow
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-no-red.svg
