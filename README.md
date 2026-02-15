@@ -1,4 +1,4 @@
-# Home Assistant Add-on: owserver
+# Home Assistant App: owserver
 
 [![Releases][releases-shield]][releases]
 
@@ -9,10 +9,10 @@ Provides owserver to read 1-Wire devices over DS2480B-based bus master serial de
 
 ## About
 
-This addon provides you owserver instance to read 1-Wire devices over serial/i2c/usb or ha7net device and exposing reading to Home Assistant via the native integration.
+This app provides you owserver instance to read 1-Wire devices over serial/i2c/usb or ha7net device and exposing reading to Home Assistant via the native integration.
 
 ### Supported devices
-Addon has been tested with
+App has been tested with
 - [MERA-PROJEKT MP00206-P](http://www.meraprojekt.com.pl/mp00206-p.html)
 - [ElabNET's Professional Busmaster PBM-01](https://shop.elabnet.de/en/1-wire/series/h/1-wire-professional-bus-master-pbm01-usb_812_2073)
 - [HA7Net](https://www.embeddeddatasystems.com/HA7Net--Ethernet-1-Wire-Host-Adapter_p_22.html) 
@@ -25,13 +25,14 @@ but shoud work well with other serial/i2c/usb/ha7net devices. Please let me know
 
 ### Installation
 
-1. Access your Home Assistant, go to **Add-ons** -> **Add-on Store** and add this URL as an additional repository: 
+1. Access your Home Assistant, go to **Apps** -> **Install app** and add this URL as an additional repository: 
 `https://github.com/lrybak/addon-repository`
-1. Find the "owserver (1-Wire)" add-on and click the "INSTALL" button.
-1. Configure the add-on and click on "START". With default configuration addon starts with fake (mocked) devices.
+1. Find the "owserver (1-Wire)" app and click the "INSTALL" button.
+1. Configure the app and click on "START". With default configuration app starts with fake (mocked) devices.
 1. Add to Home Assistant through the Integrations. Go to Integrations, Add Integration, Choose 1-Wire
-    - Host: `provide add-on's hostname (from add-on details page)`
+    - Host: `provide app's hostname (from app details page)`
     - Port: `4304` _(default)_
+1. ... or use Home Asistant auto discovery (since 2025.2.0). Go to Integrations, find discovered app and Add it.
 1. That's it. On the integrations page wou will find 1-Wire integration with discovered devices.
 
 ### Configuration

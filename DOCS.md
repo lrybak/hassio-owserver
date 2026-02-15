@@ -1,12 +1,12 @@
 # owserver
 
-The addon provides owserver enabling access to 1-Wire sensors over serial, i2c, usb, w1, pbm, ha7net fake devices.
+The app provides owserver enabling access to 1-Wire sensors over serial, i2c, usb, w1, pbm, ha7net fake devices.
 
 ## Configuration
 
-**Note**: _Remember to restart the add-on whenever configuration change._
+**Note**: _Remember to restart the app whenever configuration change._
 
-Example add-on configurations:
+Example app configurations:
 
 ```yaml
 devices:
@@ -81,9 +81,9 @@ Specify debug mode for owserver. _Please note that once DEBUG mode is enabled yo
 
 ## Home Assistant integration
 
-1. Configure and start addon. With default configuration addon starts with fake (mocked) devices.
+1. Configure and start app. With default configuration app starts with fake (mocked) devices.
 1. Add to Home Assistant through the Integrations. Go to Integrations, Add Integration, Choose 1-Wire
-    - Host: `provide add-on's hostname (from add-on details page)`
+    - Host: `provide app's hostname (from app details page)`
     - Port: `4304` _(default)_
-1. ... or use Home Asistant auto discovery (since 2025.2.0). Go to Integrations, find discovered addon and Add it.
+1. ... or use Home Asistant auto discovery (since 2025.2.0). Go to Integrations, find discovered app and Add it.
 1. That's it. On the integrations page wou will find 1-Wire integration with 1-Wire devices.
