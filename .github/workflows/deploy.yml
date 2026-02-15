@@ -34,7 +34,7 @@ jobs:
       version: ${{ steps.release.outputs.version }}
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: 🚀 Run add-on information action
         id: information
         uses: frenck/action-addon-information@v1.4.2
@@ -66,23 +66,23 @@ jobs:
         architecture: ${{ fromJson(needs.information.outputs.architectures) }}
     steps:
       - name: 🔂 Wait for other runs to complete
-        uses: softprops/turnstyle@d19765feea3939d2256486c30e5372d1dc6533c7
+        uses: softprops/turnstyle@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: 🏗 Set up build cache
         id: cache
-        uses: actions/cache@v4.2.2
+        uses: actions/cache@v5
         with:
           path: /tmp/.docker-cache
           key: docker-${{ matrix.architecture }}-${{ github.sha }}
           restore-keys: |
             docker-${{ matrix.architecture }}
       - name: 🏗 Set up QEMU
-        uses: docker/setup-qemu-action@v3.2.0
+        uses: docker/setup-qemu-action@v3
       - name: 🏗 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.6.1
+        uses: docker/setup-buildx-action@v3
       - name: ℹ️ Compose build flags
         id: flags
         run: |
@@ -97,8 +97,8 @@ jobs:
             echo "::error ::Could not determine platform for architecture ${{ matrix.architecture }}"
             exit 1
           fi
-      - name: 🏗  Login to GitHub Container Registry
-        uses: docker/login-action@v3.3.0
+      - name: 🏗 Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -119,7 +119,7 @@ jobs:
           echo "needs.information.outputs.version"
           echo ${{ needs.information.outputs.version }}
       - name: 🚀 Build
-        uses: docker/build-push-action@v6.7.0
+        uses: docker/build-push-action@v6
         with:
           load: true
           # yamllint disable rule:line-length
@@ -177,7 +177,7 @@ jobs:
           client-payload: >
             {
               "app": "${{ needs.information.outputs.slug }}",
-              "name": "${{ needs.information.outputs.name }} EDGE",
+              "name": "${{ needs.information.outputs.name }}",
               "repository": "${{ github.repository }}",
               "version": "${{ needs.information.outputs.version }}"
             }
@@ -194,7 +194,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Dispatch repository updater update signal
-        uses: peter-evans/repository-dispatch@v3.0.0
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
           repository: lrybak/addon-repository-beta
@@ -217,7 +217,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Dispatch repository updater update signal
-        uses: peter-evans/repository-dispatch@v3.0.0
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
           repository: lrybak/addon-repository

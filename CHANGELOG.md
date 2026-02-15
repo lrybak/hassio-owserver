@@ -2,6 +2,7 @@
 
 ## 0.7.0
 - Update hassio-addons/addon-base to v20.0.1
+- Update github actions dependencies
 
 ### Breaking change: read before you upgrade!
 
