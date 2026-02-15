@@ -169,15 +169,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚀 Dispatch repository updater update signal
-        uses: peter-evans/repository-dispatch@v3.0.0
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
           repository: lrybak/addon-repository-edge
           event-type: update
           client-payload: >
             {
-              "addon": "${{ needs.information.outputs.slug }}",
-              "name": "${{ needs.information.outputs.name }}",
+              "app": "${{ needs.information.outputs.slug }}",
+              "name": "${{ needs.information.outputs.name }} EDGE",
               "repository": "${{ github.repository }}",
               "version": "${{ needs.information.outputs.version }}"
             }
