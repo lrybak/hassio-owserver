@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0
+- Update hassio-addons/addon-base to v20.0.1
+
+### Breaking change: read before you upgrade!
+
+This update drops support for armv7 and armhf architectures, following their deprecation in Home Assistant 2025.12 and aligns with internal metrics showing zero active users on these platforms 👋 🧹 (see [Drop support for armhf, armv7, and i386 systems](https://github.com/hassio-addons/app-base/pull/353))
+
 ## 0.6.3
 - Update hassio-addons/addon-base to v18.1.1
 - Change the way of checking the owhttpd config parameter (fixes #42)
