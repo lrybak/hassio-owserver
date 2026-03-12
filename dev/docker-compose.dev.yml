@@ -19,7 +19,6 @@ services:
           - supervisor
 
   owserver:
-    image: local/owserver:ci
     platform: ${BUILD_PLATFORM:-linux/arm64}
     build:
       context: ../
