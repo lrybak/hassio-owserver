@@ -7,9 +7,8 @@ on:
       - published
   workflow_run:
     workflows: [CI]
-    branches: 
-      - master
-      - dev
+    branches:
+      - develop
     types:
       - completed
 
