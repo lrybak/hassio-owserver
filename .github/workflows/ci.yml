@@ -104,10 +104,8 @@ jobs:
         run: |
           rm -rf /tmp/.docker-cache
           mv /tmp/.docker-cache-new /tmp/.docker-cache
-      - name: Debug
-        run: pwd && ls
       - name: 🧪 Run integration tests
         env:
           BUILD_PLATFORM: ${{ steps.flags.outputs.platform }}
           BUILD_ARCH: ${{ matrix.architecture }}
-        run: bash hassio-owserver/dev/test.sh
+        run: bash dev/test.sh
