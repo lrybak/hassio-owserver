@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.1
+- Added automated integration tests to CI pipeline
+- Fixed CPU core count flag in make build configuration
+- No user-facing changes in this release.
+
 ## 0.7.0
 - Update hassio-addons/addon-base to v20.0.1
 - Update github actions dependencies
