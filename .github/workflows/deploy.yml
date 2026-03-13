@@ -103,20 +103,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run ls
-        run: |
-          echo "needs.information.outputs.environment: "
-          echo ${{ needs.information.outputs.environment }}
-          echo "needs.information.outputs.version"
-          echo ${{ needs.information.outputs.version }}
-          echo "needs.information.outputs.slug"
-          echo ${{ needs.information.outputs.slug }}
-          echo "matrix.architecture"
-          echo $ {{ matrix.architecture }}
-          echo "needs.information.outputs.environment"
-          echo ${{ needs.information.outputs.environment }}
-          echo "needs.information.outputs.version"
-          echo ${{ needs.information.outputs.version }}
       - name: 🚀 Build
         uses: docker/build-push-action@v6
         with:
