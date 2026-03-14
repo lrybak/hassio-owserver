@@ -76,7 +76,7 @@ Specify temperature scale used by owserver from the options below:
 
 ### Option: `debug`
 
-Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_
+Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_.
 
 
 ## Home Assistant integration
