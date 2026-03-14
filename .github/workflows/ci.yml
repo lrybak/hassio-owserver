@@ -78,6 +78,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: false
+          load: true
+          tags: local/owserver:ci
           context: ${{ needs.information.outputs.target }}
           file: ${{ needs.information.outputs.target }}/Dockerfile
           cache-from: |
@@ -102,3 +104,8 @@ jobs:
         run: |
           rm -rf /tmp/.docker-cache
           mv /tmp/.docker-cache-new /tmp/.docker-cache
+      - name: 🧪 Run integration tests
+        env:
+          BUILD_PLATFORM: ${{ steps.flags.outputs.platform }}
+          BUILD_ARCH: ${{ matrix.architecture }}
+        run: bash dev/test.sh

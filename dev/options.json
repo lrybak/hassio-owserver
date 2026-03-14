@@ -1,0 +1,8 @@
+{
+  "devices": [
+    { "device_type": "fake" }
+  ],
+  "owhttpd": true,
+  "temperature_scale": "Celsius",
+  "debug": false
+}

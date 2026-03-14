@@ -1,0 +1,38 @@
+services:
+  supervisor:
+    image: python:3-alpine
+    volumes:
+      - ./mock-supervisor.py:/mock-supervisor.py:ro
+    command: python3 /mock-supervisor.py
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost/')\""
+      ]
+      interval: 1s
+      timeout: 2s
+      retries: 10
+      start_period: 1s
+    networks:
+      default:
+        aliases:
+          - supervisor
+
+  owserver:
+    image: local/owserver:ci
+    platform: ${BUILD_PLATFORM:-linux/arm64}
+    build:
+      context: ../
+      args:
+        BUILD_ARCH: ${BUILD_ARCH:-aarch64}
+        BUILD_FROM: ${BUILD_FROM}
+    ports:
+      - "4304:4304"  # owserver
+      - "8099:8099"  # owhttpd
+    volumes:
+      - ./options.json:/data/options.json:ro
+    environment:
+      - SUPERVISOR_TOKEN=dev-token
+    depends_on:
+      supervisor:
+        condition: service_healthy

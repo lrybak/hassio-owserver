@@ -1,0 +1,75 @@
+# owhttpd: convert absolute hrefs to relative paths for HA ingress
+#
+# Home Assistant ingress proxy rewrites URLs, so owhttpd links must use
+# relative paths instead of absolute ones. Without this, navigation within
+# the owhttpd web UI is broken when accessed through HA ingress.
+#
+# Applied against OWFS v3.2p4 (commit c68deb1)
+
+diff --git a/module/owhttpd/src/c/owhttpd_dir.c b/module/owhttpd/src/c/owhttpd_dir.c
+index 5c5074d..8204688 100644
+--- a/module/owhttpd/src/c/owhttpd_dir.c
++++ b/module/owhttpd/src/c/owhttpd_dir.c
+@@ -59,7 +59,7 @@ static void ShowDirCallback(void *v, const struct parsedname *pn_entry)
+ 	}
+ 
+ 	fprintf(out,
+-			"<TR><TD><A HREF='%s'><CODE><B><BIG>%s</BIG></B></CODE></A></TD><TD>%s</TD><TD>%s</TD></TR>", escaped_path==NULL ? pn_entry->path : escaped_path, FS_DirName(pn_entry), nam,
++			"<TR><TD><A HREF='.%s'><CODE><B><BIG>%s</BIG></B></CODE></A></TD><TD>%s</TD><TD>%s</TD></TR>", escaped_path==NULL ? pn_entry->path : escaped_path, FS_DirName(pn_entry), nam,
+ 			typ);
+ 
+ 	if ( escaped_path ) {
+@@ -101,12 +101,12 @@ void ShowDir(struct OutputControl * oc, struct parsedname * pn)
+ 
+ 	if (b != 1) {
+ 		char * escaped_path = httpescape( pn->path ) ;
+-		fprintf(out, "<TR><TD><A HREF='%.*s'><CODE><B><BIG>up</BIG></B></CODE></A></TD><TD>higher level</TD><TD>directory</TD></TR>", b, escaped_path==NULL ? pn->path : escaped_path );
++		fprintf(out, "<TR><TD><A HREF='././././'><CODE><B><BIG>up</BIG></B></CODE></A></TD><TD>higher level</TD><TD>directory</TD></TR>", b, escaped_path==NULL ? pn->path : escaped_path );
+ 		if ( escaped_path ) {
+ 			owfree( escaped_path ) ;
+ 		}
+ 	} else {
+-		fprintf(out, "<TR><TD><A HREF='/'><CODE><B><BIG>top</BIG></B></CODE></A></TD><TD>highest level</TD><TD>directory</TD></TR>");
++		fprintf(out, "<TR><TD><A HREF='././././'><CODE><B><BIG>top</BIG></B></CODE></A></TD><TD>highest level</TD><TD>directory</TD></TR>");
+ 	}
+ 
+ 	FS_dir(ShowDirCallback, oc, pn);
+diff --git a/module/owhttpd/src/c/owhttpd_present.c b/module/owhttpd/src/c/owhttpd_present.c
+index 6560955..f88c3d4 100644
+--- a/module/owhttpd/src/c/owhttpd_present.c
++++ b/module/owhttpd/src/c/owhttpd_present.c
+@@ -62,7 +62,7 @@ void HTTPheader(struct OutputControl * oc, const char *head)
+ 	
+ 	fprintf(out,
+ 			"<BODY " BODYCOLOR "><TABLE " TOPTABLE
+-			"><TR><TD>OWFS</TD><TD><A HREF='/'>Bus listing</A></TD><TD><A HREF='http://www.owfs.org'>OWFS homepage</A></TD><TD><A HREF='http://www.maxim-ic.com'>Dallas/Maxim</A></TD><TD>by <A HREF='mailto://paul.alfille@gmail.com'>Paul H Alfille</A></TD></TR></TABLE>\n");
++			"><TR><TD>OWFS</TD><TD><A HREF='././././'>Bus listing</A></TD><TD><A HREF='http://www.owfs.org'>OWFS homepage</A></TD><TD><A HREF='http://www.maxim-ic.com'>Dallas/Maxim</A></TD><TD>by <A HREF='mailto://paul.alfille@gmail.com'>Paul H Alfille</A></TD></TR></TABLE>\n");
+ 	fprintf(out, "<H1>%s</H1><HR>\n", head);
+ }
+ 
+diff --git a/module/owhttpd/src/c/owhttpd_read.c b/module/owhttpd/src/c/owhttpd_read.c
+index 3da73fd..954524b 100644
+--- a/module/owhttpd/src/c/owhttpd_read.c
++++ b/module/owhttpd/src/c/owhttpd_read.c
+@@ -328,7 +328,7 @@ static void ShowWriteonly(struct OutputControl * oc, struct one_wire_query *owq)
+ static void ShowDirectory(struct OutputControl * oc, const struct parsedname *pn_entry)
+ {
+ 	FILE * out = oc->out ;
+-	fprintf(out, "<A HREF='%s'>%s</A>", pn_entry->path, FS_DirName(pn_entry));
++	fprintf(out, "<A HREF='.%s'>%s</A>", pn_entry->path, FS_DirName(pn_entry));
+ }
+ 
+ /* Device entry -- table line for a filetype */
+@@ -694,10 +694,10 @@ void ShowDevice(struct OutputControl * oc, struct parsedname *pn)
+ 	HTTPheader(oc, &pn->path[1]);
+ 
+ 	if (NotUncachedDir(pn) && IsRealDir(pn)) {
+-		fprintf(out, "<BR><small><A href='/uncached%s'>uncached version</A></small>", pn->path);
++		fprintf(out, "<BR><small><A HREF='./uncached%s'>uncached version</A></small>", pn->path);
+ 	}
+ 	fprintf(out, "<TABLE BGCOLOR=\"#DDDDDD\" BORDER=1>");
+-	fprintf(out, "<TR><TD><A HREF='%.*s'><CODE><B><BIG>up</BIG></B></CODE></A></TD><TD>directory</TD></TR>", Backup(pn->path), pn->path);
++	fprintf(out, "<TR><TD><A HREF='././././'><CODE><B><BIG>up</BIG></B></CODE></A></TD><TD>directory</TD></TR>", Backup(pn->path), pn->path);
+ 
+ 
+ 	if (pn->selected_filetype == NO_FILETYPE) {	/* whole device */
