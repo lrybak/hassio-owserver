@@ -34,6 +34,8 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: 🚀 Run add-on information action
         id: information
         uses: frenck/action-addon-information@v1.4.2
@@ -42,7 +44,7 @@ jobs:
       - name: ℹ️ Gather version and environment
         id: release
         run: |
-          sha="${{ github.sha }}"
+          sha="${{ github.event.workflow_run.head_sha || github.sha }}"
           environment="edge"
           version="${sha:0:7}"
           if [[ "${{ github.event_name }}" = "release" ]]; then
