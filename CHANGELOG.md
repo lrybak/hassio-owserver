@@ -1,9 +1,11 @@
 # Changelog
 
-## 0.7.1
+## 0.8.0
 - Added automated integration tests to CI pipeline
 - Fixed CPU core count flag in make build configuration
-- No user-facing changes in this release.
+- New owhttpd css light and dark theme 
+- Improved CI/CD pipelines
+- Added native ARM64 runner to significantly speed up `aarch64` builds
 
 ## 0.7.0
 - Update hassio-addons/addon-base to v20.0.1
