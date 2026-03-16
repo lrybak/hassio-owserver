@@ -1,0 +1,92 @@
+# owhttpd: inject CSS for modern Home Assistant-style theme
+#
+# Injects a <style> block into the HTML <head> to modernize the owhttpd
+# web interface with HA-style cards, colors, and dark mode support.
+# No HTML structure changes — pure CSS override of legacy inline attributes.
+#
+# Applied against OWFS v3.2p4 (commit c68deb1)
+
+diff --git a/module/owhttpd/src/c/owhttpd_present.c b/module/owhttpd/src/c/owhttpd_present.c
+index 6560955..a66d3a1 100644
+--- a/module/owhttpd/src/c/owhttpd_present.c
++++ b/module/owhttpd/src/c/owhttpd_present.c
+@@ -53,7 +53,78 @@ void HTTPtitle(struct OutputControl * oc, const char *title)
+ {
+ 	FILE * out = oc->out ;
+ 	
+-	fprintf(out, "<HTML><HEAD><TITLE>1-Wire Web: %s</TITLE></HEAD>\n", title);
++	fprintf(out, "<HTML><HEAD><TITLE>1-Wire Web: %s</TITLE>\n", title);
++	fprintf(out,
++		"<meta name='viewport' content='width=device-width,initial-scale=1'>"
++		"<style>"
++		"*,*::before,*::after{box-sizing:border-box}"
++		"body{margin:0;padding:16px;"
++		"font-family:Roboto,Noto,sans-serif;"
++		"background:#FAFAFA;color:#212121;line-height:1.5}"
++		"body>table:first-of-type{"
++		"background:#03a9f4;border:none;border-radius:8px;"
++		"padding:4px 8px;margin-bottom:16px;"
++		"box-shadow:0 2px 4px rgba(0,0,0,.15);"
++		"border-collapse:separate;border-spacing:0}"
++		"body>table:first-of-type td{"
++		"padding:8px 16px;color:#fff;font-weight:500;border:none}"
++		"body>table:first-of-type a{color:#fff;text-decoration:none;opacity:.9}"
++		"body>table:first-of-type a:hover{opacity:1;text-decoration:underline}"
++		"h1{color:#212121;font-weight:400;font-size:1.5rem;margin:8px 0 4px}"
++		"hr{border:none;border-top:1px solid #e0e0e0;margin:8px 0 16px}"
++		"table[bgcolor],body>table:not(:first-of-type){"
++		"background:#fff;border:1px solid #e0e0e0;border-radius:8px;"
++		"border-collapse:separate;border-spacing:0;overflow:hidden;"
++		"box-shadow:0 1px 3px rgba(0,0,0,.08);margin:8px 0;width:auto}"
++		"table[bgcolor] td,body>table:not(:first-of-type) td{"
++		"padding:10px 16px;border-bottom:1px solid #f0f0f0;"
++		"border-left:none;border-right:none;border-top:none}"
++		"table[bgcolor]:not(:first-of-type) tr:first-child td,body>table:not(:first-of-type) tr:first-child td{"
++		"background:#e3f2fd;font-weight:600;color:#0277bd;border-bottom:1px solid #b3e5fc}"
++		"table[bgcolor] tr:last-child td{border-bottom:none}"
++		"a{color:#212121;text-decoration:underline}"
++		"a:hover{text-decoration:none}"
++		"code{font-family:'Roboto Mono',ui-monospace,monospace;font-size:.95em}"
++		"big{font-size:1em}"
++		"input[type='text'],textarea{"
++		"font-family:inherit;padding:8px 12px;"
++		"border:1px solid #ccc;border-radius:4px;"
++		"font-size:.9rem;background:#fff;transition:border-color .2s}"
++		"input[type='text']:focus,textarea:focus{"
++		"outline:none;border-color:#03a9f4;"
++		"box-shadow:0 0 0 2px rgba(3,169,244,.2)}"
++		"input[type='submit']{"
++		"font-family:inherit;padding:8px 20px;"
++		"background:#03a9f4;color:#fff;border:none;"
++		"border-radius:4px;cursor:pointer;font-size:.9rem;margin-left:4px}"
++		"input[type='submit']:hover{background:#0288d1}"
++		"input[type='checkbox']{accent-color:#03a9f4;width:18px;height:18px}"
++		"@media(max-width:600px){"
++		"body{padding:8px}"
++		"td{padding:6px 8px}}"
++		"@media(prefers-color-scheme:dark){"
++		"body{background:#1c1c1c;color:#e0e0e0}"
++		"h1{color:#e0e0e0}"
++		"hr{border-top-color:#333}"
++		"table[bgcolor],body>table:not(:first-of-type){"
++		"background:#2c2c2c;border-color:#444;"
++		"box-shadow:0 1px 3px rgba(0,0,0,.3)}"
++		"table[bgcolor] td,body>table:not(:first-of-type) td{"
++		"border-bottom-color:#383838}"
++		"table[bgcolor]:not(:first-of-type) tr:first-child td,body>table:not(:first-of-type) tr:first-child td{"
++		"background:#1a3a4a;color:#b0bec5;border-bottom-color:rgba(79,195,247,.35)}"
++		"table[bgcolor]:not(:first-of-type) tr:first-child td a,body>table:not(:first-of-type) tr:first-child td a{"
++		"color:#81d4fa}"
++		"a{color:#4fc3f7}"
++		"body>table:first-of-type a{color:#fff}"
++		"input[type='text'],textarea{"
++		"background:#333;color:#e0e0e0;border-color:#555}"
++		"input[type='text']:focus,textarea:focus{"
++		"border-color:#4fc3f7;"
++		"box-shadow:0 0 0 2px rgba(79,195,247,.2)}"
++		"pre{color:#e0e0e0}}"
++		"</style>"
++		"</HEAD>\n");
+ }
+ 
+ void HTTPheader(struct OutputControl * oc, const char *head)

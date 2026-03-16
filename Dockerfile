@@ -15,7 +15,8 @@ RUN git clone --single-branch --branch ${OWFS_VERSION} --depth 1 https://github.
 
 COPY patches/ /owfs-code/patches/
 RUN cd /owfs-code \
-  && git apply patches/0001-owhttpd-ingress-relative-paths.patch
+  && git apply patches/0001-owhttpd-ingress-relative-paths.patch \
+  && git apply patches/0002-owhttpd-css-homeassistant-theme.patch
 
 RUN cd /owfs-code \
   && ./bootstrap \
