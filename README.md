@@ -43,7 +43,7 @@ Please check the **[full documentation page](https://github.com/lrybak/hassio-ow
 ![Integration setup 1](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_setup1.png)
 ![Integration setup 2](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_setup2.png)
 ![Integrations page](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_integrations.jpg)
-![owhttpd](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_owhttpd.jpg)
+![owhttpd](https://github.com/lrybak/hassio-owserver/raw/master/images/screenshot_owhttpd.png)
 
 [releases-shield]: https://img.shields.io/github/release/lrybak/hassio-owserver.svg
 [releases]: https://github.com/lrybak/hassio-owserver/releases
