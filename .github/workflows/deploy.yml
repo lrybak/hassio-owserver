@@ -61,10 +61,15 @@ jobs:
   deploy:
     name: 👷 Build & Deploy ${{ matrix.architecture }}
     needs: information
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         architecture: ${{ fromJson(needs.information.outputs.architectures) }}
+        include:
+          - architecture: amd64
+            runner: ubuntu-latest
+          - architecture: aarch64
+            runner: ubuntu-24.04-arm
     steps:
       - name: 🔂 Wait for other runs to complete
         uses: softprops/turnstyle@v3
@@ -81,6 +86,7 @@ jobs:
           restore-keys: |
             docker-${{ matrix.architecture }}
       - name: 🏗 Set up QEMU
+        if: matrix.architecture != 'aarch64'
         uses: docker/setup-qemu-action@v3
       - name: 🏗 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
