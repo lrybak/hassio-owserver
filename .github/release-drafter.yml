@@ -1,0 +1,71 @@
+---
+name-template: "$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+
+categories:
+  - title: "🚀 New Features"
+    labels:
+      - "feature"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "bug"
+      - "bugfix"
+      - "fix"
+  - title: "📦 Dependency Updates"
+    labels: 
+      - "docker"
+  - title: "🛠️ Maintenance & CI"
+    labels:
+      - "ci"
+  - title: "📖 Documentation"
+    labels:
+      - "documentation"
+  - title: "⚠️ Breaking Changes"
+    labels: 
+      - "breaking-change"
+
+version-resolver:
+  major:
+    labels:
+      - "breaking-change"
+  minor:
+    labels:
+      - "feature"
+  patch:
+    labels:
+      - "bug"
+      - "bugfix"
+      - "fix"
+      - "ci"
+      - "docker"
+  default: patch
+
+autolabeler:
+  - label: "ci"
+    files:
+      - ".github/**"
+  - label: "docker"
+    files:
+      - "**/Dockerfile"
+  - label: "documentation"
+    files:
+      - "*.md"
+      - "docs/**"
+  - label: "feature"
+    branch:
+      - "/^feature\\/.+/"
+  - label: "bug"
+    branch:
+      - "/^(bug)?fix\\/.+/"
+
+exclude-labels:
+  - "skip-changelog"
+
+template: |
+  ## What's Changed
+  $CHANGES
+  **Full Changelog**: $PREVIOUS_TAG...v$RESOLVED_VERSION
+change-template: "- $TITLE (#$NUMBER) @$AUTHOR"
+change-title-escapes: '\<*_&'
+sort-by: merged_at
+sort-direction: descending
