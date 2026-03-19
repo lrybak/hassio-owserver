@@ -12,7 +12,7 @@ categories:
       - "bugfix"
       - "fix"
   - title: "📦 Dependency Updates"
-    labels: 
+    labels:
       - "docker"
   - title: "🛠️ Maintenance & CI"
     labels:
@@ -21,7 +21,7 @@ categories:
     labels:
       - "documentation"
   - title: "⚠️ Breaking Changes"
-    labels: 
+    labels:
       - "breaking-change"
 
 version-resolver:
