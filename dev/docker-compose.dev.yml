@@ -1,3 +1,4 @@
+---
 services:
   supervisor:
     image: python:3-alpine
