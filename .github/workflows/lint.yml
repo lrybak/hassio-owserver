@@ -25,7 +25,7 @@ jobs:
         with:
           dockerfile: Dockerfile
           config: .hadolint.yaml
-          
+
   shellcheck:
     name: ShellCheck (shell scripts)
     runs-on: ubuntu-latest
@@ -49,11 +49,4 @@ jobs:
       - name: 🔍 Run YAMLlint
         uses: ibiqlik/action-yamllint@v3
         with:
-          config_data: |
-            extends: default
-            rules:
-              line-length:
-                max: 120
-                level: warning
-              truthy:
-                allowed-values: ["true", "false", "on"]
+          config_file: .yamllint.yml
