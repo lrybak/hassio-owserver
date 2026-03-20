@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 
 # Stage 1: Build OWFS from source
-FROM alpine:3.21 AS builder
+FROM alpine:3.23 AS builder
 
 ARG OWFS_VERSION=v3.2p4
 
