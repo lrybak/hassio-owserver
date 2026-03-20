@@ -22,9 +22,10 @@ options:
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   devices:
-    - device_type: list(serial|passive|i2c|usb|pbm|ha7net|w1|link|fake)
+    - device_type: list(serial|passive|i2c|usb|pbm|ha7net|w1|link|enet|etherweather|fake)
       device: device?
-      ha7net_server: match(^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$)?
+      server: match(^([a-zA-Z0-9\.\-\_]+)(:[0-9]+)?$)?
+      ha7net_server: match(^([a-zA-Z0-9\.\-\_]+)(:[0-9]+)?$)?
   owhttpd: bool
   temperature_scale: list(Celsius|Fahrenheit|Kelvin|Rankine)
   debug: bool?

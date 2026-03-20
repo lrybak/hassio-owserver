@@ -2,17 +2,47 @@
 
 # validating user's options
 for device in $(bashio::config "devices|keys"); do
-    if bashio::config.equals "devices[${device}].device_type" "serial" || \
-        bashio::config.equals "devices[${device}].device_type" "passive" || \
-        bashio::config.equals "devices[${device}].device_type" "i2c" || \
-        bashio::config.equals "devices[${device}].device_type" "pbm"; then
+    device_type=$(bashio::config "devices[${device}].device_type")
+
+    if [[ "${device_type}" == "serial" ]] || \
+        [[ "${device_type}" == "passive" ]] || \
+        [[ "${device_type}" == "i2c" ]] || \
+        [[ "${device_type}" == "pbm" ]]; then
         if ! bashio::config.has_value "devices[${device}].device"; then
-            bashio::config.require "device" "Please set the device"
+            bashio::exit.nok "Device ${device}: Please set the device path for ${device_type}"
         fi
     fi
-    if bashio::config.equals "devices[${device}].device_type" "ha7net"; then
-        if ! bashio::config.has_value "devices[${device}].ha7net_server"; then
-            bashio::config.require "device" "Please set the ha7net server address"
+
+    if [[ "${device_type}" == "ha7net" ]] || \
+        [[ "${device_type}" == "enet" ]] || \
+        [[ "${device_type}" == "etherweather" ]]; then
+        has_server=$(bashio::config.has_value "devices[${device}].server" && echo true || echo false)
+        has_ha7net_server=$(bashio::config.has_value "devices[${device}].ha7net_server" && echo true || echo false)
+
+        if [[ "${device_type}" == "ha7net" ]]; then
+            if [[ "${has_ha7net_server}" == "true" ]] && [[ "${has_server}" == "false" ]]; then
+                bashio::log.warning "Device ${device}: 'ha7net_server' is deprecated and will be removed in a future release."
+                bashio::log.warning "Please migrate your configuration to use 'server' instead of 'ha7net_server'."
+            elif [[ "${has_ha7net_server}" == "true" ]] && [[ "${has_server}" == "true" ]]; then
+                bashio::log.warning "Device ${device}: Both 'server' and 'ha7net_server' are set. Using 'server', ignoring 'ha7net_server'."
+            fi
+        fi
+
+        if [[ "${has_server}" == "false" ]] && [[ "${has_ha7net_server}" == "false" ]]; then
+            bashio::exit.nok "Device ${device}: Please set the server address for ${device_type}"
+        fi
+    fi
+
+    if [[ "${device_type}" == "link" ]]; then
+        has_device=$(bashio::config.has_value "devices[${device}].device" && echo true || echo false)
+        has_server=$(bashio::config.has_value "devices[${device}].server" && echo true || echo false)
+
+        if [[ "${has_device}" == "true" ]] && [[ "${has_server}" == "true" ]]; then
+            bashio::exit.nok "Device ${device}: Cannot set both 'device' and 'server' for link. Use 'device' for serial/USB or 'server' for network connection."
+        fi
+
+        if [[ "${has_device}" == "false" ]] && [[ "${has_server}" == "false" ]]; then
+            bashio::exit.nok "Device ${device}: Please set 'device' (serial/USB) or 'server' (network) for link"
         fi
     fi
 done
