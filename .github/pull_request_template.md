@@ -13,5 +13,6 @@
 
 - [ ] `make lint` passes (Hadolint, ShellCheck, YAMLlint)
 - [ ] `bash dev/test.sh` passes (build and integration tests)
+- [ ] CI checks have passes
 - [ ] I have updated documentation where applicable
 - [ ] I have tested on real hardware or in debug mode
