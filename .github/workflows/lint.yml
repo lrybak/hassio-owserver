@@ -21,7 +21,7 @@ jobs:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v4
       - name: 🔍 Run Hadolint
-        uses: hadolint/hadolint-action@v3.1.0
+        uses: hadolint/hadolint-action@v3.3.0
         with:
           dockerfile: Dockerfile
           config: .hadolint.yaml
