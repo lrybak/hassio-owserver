@@ -1,0 +1,65 @@
+name: Connectivity Issue
+description: Report a problem connecting Home Assistant to owserver
+labels: ["connectivity"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Before you submit
+
+        > **Important:** If you have `debug` mode enabled in the addon configuration, owserver runs in a diagnostic-only mode.
+        > You **will not be able to connect** to the owserver from Home Assistant while debug mode is active.
+        > Debug mode is intended only for troubleshooting 1-Wire device connectivity — disable it for normal operation.
+
+  - type: dropdown
+    id: debug-mode
+    attributes:
+      label: Is debug mode enabled?
+      description: Check your addon configuration for the `debug` option.
+      options:
+        - "No"
+        - "Yes"
+    validations:
+      required: true
+
+  - type: input
+    id: addon-version
+    attributes:
+      label: Addon version
+      placeholder: e.g. 0.8.0
+    validations:
+      required: true
+
+  - type: input
+    id: ha-version
+    attributes:
+      label: Home Assistant version
+      placeholder: e.g. 2025.3.0
+    validations:
+      required: true
+
+  - type: input
+    id: device-type
+    attributes:
+      label: 1-Wire adapter type
+      description: What device type are you using? (e.g. DS9490R USB, DS2482-100 i2c, GPIO w1)
+      placeholder: e.g. DS9490R (USB)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the connectivity problem you are experiencing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Addon logs
+      description: Paste relevant logs from the addon. Go to Settings > Add-ons > owserver > Log.
+      render: text
+    validations:
+      required: false
