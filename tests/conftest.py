@@ -1,6 +1,7 @@
 """Shared fixtures for owserver tests."""
 
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -58,8 +59,8 @@ def compose_project(tmp_path_factory):
 
     env = {
         "OPTIONS_JSON_PATH": str(options_file),
-        "BUILD_PLATFORM": "linux/arm64",
-        "BUILD_ARCH": "aarch64",
+        "BUILD_PLATFORM": os.environ.get("BUILD_PLATFORM", "linux/arm64"),
+        "BUILD_ARCH": os.environ.get("BUILD_ARCH", "aarch64"),
         "PATH": subprocess.check_output(
             ["bash", "-lc", "echo $PATH"], text=True
         ).strip(),
