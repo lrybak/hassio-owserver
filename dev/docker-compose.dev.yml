@@ -4,6 +4,7 @@ services:
     image: python:3-alpine
     volumes:
       - ./mock-supervisor.py:/mock-supervisor.py:ro
+      - ${OPTIONS_JSON_PATH:-./options.json}:/data/options.json:ro
     command: python3 /mock-supervisor.py
     healthcheck:
       test: [
@@ -31,7 +32,7 @@ services:
       - "4304:4304"  # owserver
       - "8099:8099"  # owhttpd
     volumes:
-      - ./options.json:/data/options.json:ro
+      - ${OPTIONS_JSON_PATH:-./options.json}:/data/options.json:ro
     environment:
       - SUPERVISOR_TOKEN=dev-token
     depends_on:
