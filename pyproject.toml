@@ -1,0 +1,10 @@
+[project]
+name = "owserver-tests"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests requiring running containers",
+    "template: template rendering tests",
+]
