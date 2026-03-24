@@ -1,3 +1,4 @@
+---
 name: Connectivity Issue
 description: Report a problem connecting Home Assistant to owserver
 labels: ["connectivity"]
@@ -7,7 +8,8 @@ body:
       value: |
         ## Before you submit
 
-        > **Important:** If you have `debug` mode enabled in the addon configuration, owserver runs in a diagnostic-only mode.
+        > **Important:** If you have `debug` mode enabled in the addon configuration,
+        > owserver runs in a diagnostic-only mode.
         > You **will not be able to connect** to the owserver from Home Assistant while debug mode is active.
         > Debug mode is intended only for troubleshooting 1-Wire device connectivity — disable it for normal operation.
 
