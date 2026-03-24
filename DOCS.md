@@ -20,13 +20,50 @@ debug: false
 ```yaml
 devices:
   - device_type: ha7net
-    ha7net_server: 192.168.50.1
+    server: 192.168.50.1
   - device_type: ha7net
-    ha7net_server: 192.168.50.2
+    server: 192.168.50.2
 owhttpd: true
 temperature_scale: Celsius
 debug: false
 ```
+
+```yaml
+devices:
+  - device_type: enet
+    server: 192.168.10.83
+owhttpd: true
+temperature_scale: Celsius
+debug: false
+```
+
+```yaml
+devices:
+  - device_type: etherweather
+    server: 192.168.10.100
+owhttpd: true
+temperature_scale: Celsius
+debug: false
+```
+
+```yaml
+devices:
+  - device_type: link
+    server: 192.168.10.50
+owhttpd: true
+temperature_scale: Celsius
+debug: false
+```
+
+```yaml
+devices:
+  - device_type: link
+    device: /dev/ttyUSB0
+owhttpd: true
+temperature_scale: Celsius
+debug: false
+```
+
 **Note**, these are just example configurations, don't copy, please create your own.
 
 
@@ -41,8 +78,11 @@ Specify the owserver device type from the following options:
 - passive (passive serial device)
 - i2c
 - usb
-- pbm (ElabNET's Professioinal Bumster PBM-01)
-- ha7net
+- pbm (ElabNET's Professional Bus Master PBM-01)
+- ha7net (Ethernet 1-Wire Host Adapter by Embedded Data Systems)
+- enet (OW-SERVER-ENET-2 by Embedded Data Systems)
+- etherweather (EtherWeather)
+- link (LinkHub-E, serial/USB or network)
 - w1 (direct access via GPIO on RasPi)
 - fake (random simulated device)
 
@@ -55,11 +95,21 @@ This is mandatory option only for following **device_type**:
 - i2c
 - pbm
 
-#### Sub-option: `ha7net_server`
+#### Sub-option: `server`
 
-Specify the address of the ha7net device.
-This is mandatory option only for following **device_type**:
+Specify the network address of the device (IP address or hostname, optionally with port).
+This is mandatory option for following **device_type**:
 - ha7net
+- enet
+- etherweather
+- link (when using network connection)
+
+#### Sub-option: `ha7net_server` (deprecated)
+
+> **Deprecated**: `ha7net_server` is deprecated and will be removed in a future release (June 2026).
+> Please migrate your configuration to use `server` instead.
+
+Previously used to specify the address of the ha7net device. Use `server` instead.
 
 ### Option: `owhttpd`
 
@@ -76,7 +126,7 @@ Specify temperature scale used by owserver from the options below:
 
 ### Option: `debug`
 
-Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_
+Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_.
 
 
 ## Home Assistant integration

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0
+- Added support for new devices: OW-SERVER-ENET2, EtherWeather, LinkHub-E)
+- Added automated integration tests to CI pipeline
+- Fixed CPU core count flag in make build configuration
+- New owhttpd css light and dark theme 
+- Improved CI/CD pipelines + bump CI actions version
+- Added native ARM64 runner to significantly speed up `aarch64` builds
+- Added tests automation
+
 ## 0.7.0
 - Update hassio-addons/addon-base to v20.0.1
 - Update github actions dependencies

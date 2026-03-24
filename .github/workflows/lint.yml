@@ -1,0 +1,52 @@
+---
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - "feature/**"
+      - "fix/**"
+      - "hotfix/**"
+  pull_request:
+    branches: [master, develop]
+  workflow_dispatch:
+
+jobs:
+  hadolint:
+    name: Hadolint (Dockerfile)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v6
+      - name: 🔍 Run Hadolint
+        uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: Dockerfile
+          config: .hadolint.yaml
+
+  shellcheck:
+    name: ShellCheck (shell scripts)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v6
+      - name: 🔍 Run ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          scandir: "./rootfs"
+          severity: warning
+        env:
+          SHELLCHECK_OPTS: "--shell=bash --external-sources"
+
+  yamllint:
+    name: YAMLlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v6
+      - name: 🔍 Run YAMLlint
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml

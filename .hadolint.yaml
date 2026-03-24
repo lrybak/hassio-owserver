@@ -1,0 +1,11 @@
+---
+# Hadolint configuration
+# https://github.com/hadolint/hadolint
+
+failure-threshold: error
+
+ignored:
+  # Ignore version pinning in base image — managed via build.yaml
+  - DL3006
+  # Ignore apt-get version pinning — Alpine uses apk
+  - DL3008
