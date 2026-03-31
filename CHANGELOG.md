@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1
+- Expose owfs port to network 
+- Bump addon base image to 20.0.2
+
 ## 0.8.0
 - Added support for new devices: OW-SERVER-ENET2, EtherWeather, LinkHub-E)
 - Added automated integration tests to CI pipeline
