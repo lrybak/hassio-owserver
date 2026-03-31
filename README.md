@@ -15,6 +15,7 @@ App has been tested with
 - [ElabNET's Professional Busmaster PBM-01](https://shop.elabnet.de/en/1-wire/series/h/1-wire-professional-bus-master-pbm01-usb_812_2073)
 - [HA7Net - Ethernet 1-Wire Host Adapter](https://www.embeddeddatasystems.com/HA7Net--Ethernet-1-Wire-Host-Adapter_p_22.html) 
 - [OW-SERVER-ENET-2 - 1-Wire to Ethernet Server](https://www.embeddeddatasystems.com/OW-SERVER-1-Wire-to-Ethernet-Server-Revision-2_p_152.html) (thanks to [Embedded Data Systems](https://www.embeddeddatasystems.com/) for providing the device for testing)
+  > **⚠️ Known limitation:** The OW-SERVER-ENET-2 has three separate 1-Wire channels (RJ11 ports). Due to a [Match ROM addressing issue in owfs](https://github.com/owfs/owfs/issues/125), using multiple channels may result in incorrect or missing sensor readings. **It is recommended to connect all sensors to a single RJ11 port.**
 - DS9490R USB 1-Wire (blue USB to RJ11 dongle)
 - [USB to One Wire converter - Virtual Com Port FT232RL based](https://denkovi.com/usb-to-one-wire-interface-adaptor-converter-thermometer)
 

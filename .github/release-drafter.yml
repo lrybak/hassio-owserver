@@ -1,5 +1,5 @@
 ---
-name-template: "$RESOLVED_VERSION"
+name-template: "Release $RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 
 categories:
