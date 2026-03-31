@@ -128,6 +128,16 @@ Specify temperature scale used by owserver from the options below:
 
 Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_.
 
+## Network: Exposing owserver port to LAN
+
+By default, the owserver port (4304) is only accessible within the Home Assistant network. If you need other devices on your LAN to query owserver directly, you can optionally expose the port.
+
+To enable:
+1. Go to **Settings → Add-ons → owserver → Configuration → Network**
+2. Set the port number (e.g. `4304`) in the **"owserver 1-Wire (set port number to expose to LAN)"** field
+3. Click **Save** and restart the addon
+
+To disable, clear the port field, save and restart.
 
 ## Home Assistant integration
 

@@ -12,6 +12,10 @@ arch:
 boot: auto
 discovery:
   - onewire
+ports:
+  "4304/tcp": null
+ports_description:
+  "4304/tcp": "owserver 1-Wire (set port number to expose to LAN)"
 uart: true
 options:
   devices:

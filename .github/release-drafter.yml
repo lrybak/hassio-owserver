@@ -47,6 +47,7 @@ autolabeler:
   - label: "docker"
     files:
       - "**/Dockerfile"
+      - "build.yaml"
   - label: "documentation"
     files:
       - "*.md"

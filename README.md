@@ -5,11 +5,9 @@
 ![amd64][amd64-shield]
 ![aarch64][aarch64-shield]
 
-Provides owserver to read 1-Wire devices over DS2480B-based bus master serial device..
-
 ## About
 
-This app provides you owserver instance to read 1-Wire devices over serial/i2c/usb or ha7net device and exposing reading to Home Assistant via the native integration.
+A robust owserver instance designed to bridge your 1-Wire network with Home Assistant. It acts as a gateway, allowing the native 1-Wire integration to communicate with various bus masters over Serial, USB, or Ethernet.
 
 ### Supported devices
 App has been tested with
