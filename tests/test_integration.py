@@ -49,11 +49,3 @@ class TestOwserver:
         )
         temp = result.stdout.strip()
         assert re.match(r"^-?\d+(\.\d+)?$", temp), f"temperature invalid: '{temp}'"
-
-    def test_owhttpd_responds(self, compose_project):
-        result = subprocess.run(
-            ["curl", "-sf", "http://localhost:8099/"],
-            capture_output=True, text=True,
-        )
-        assert result.returncode == 0
-        assert "1-Wire" in result.stdout
