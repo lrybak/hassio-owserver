@@ -9,7 +9,7 @@
 ## Install dependencies
 
 ```bash
-pip install pytest
+pip install -r tests/requirements.txt
 ```
 
 ## Run all tests
