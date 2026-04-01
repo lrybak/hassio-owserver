@@ -71,4 +71,4 @@ class TestOwhttpd:
         )
 
         assert "owhttpd is disabled" in logs
-        assert not self.is_owhttpd_running("127.0.0.1", 8099)
+        assert not self.is_owhttpd_running("localhost", 8099)
