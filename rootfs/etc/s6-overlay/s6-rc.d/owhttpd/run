@@ -1,5 +1,10 @@
 #!/command/with-contenv bashio
 
+if ! bashio::config.true 'owhttpd'; then
+    bashio::log.info "owhttpd is disabled, skipping..."
+    exec /usr/bin/s6-pause
+fi
+
 if ! pgrep -x "/opt/owfs/bin/owhttpd" > /dev/null
 then
     bashio::log.info "Wait until owserver is up and running..."
