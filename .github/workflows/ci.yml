@@ -111,7 +111,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: 📦 Install test dependencies
-        run: pip install pytest
+        run: pip install -r tests/requirements.txt
       - name: 🧪 Run tests
         env:
           BUILD_PLATFORM: ${{ steps.flags.outputs.platform }}
