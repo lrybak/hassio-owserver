@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+- Bump addon base image to 21.0.0
+- Bump builder alpine to alpine:3.24
+
 ## 0.9.0
 - Expose owfs port to network 
 - Fixed: owhttpd was incorrectly starting even when disabled in settings (fixes #73)
