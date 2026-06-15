@@ -1,7 +1,8 @@
 # Changelog
 
-## 0.10.0
+## 0.9.1
 - Bump addon base image to 21.0.0
+- Bump builder alpine to alpine:3.24
 
 ## 0.9.0
 - Expose owfs port to network 
