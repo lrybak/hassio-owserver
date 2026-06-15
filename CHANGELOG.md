@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.10.0
+- Bump addon base image to 21.0.0
+
 ## 0.9.0
 - Expose owfs port to network 
 - Fixed: owhttpd was incorrectly starting even when disabled in settings (fixes #73)
