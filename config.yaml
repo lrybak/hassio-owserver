@@ -17,6 +17,7 @@ ports:
 ports_description:
   "4304/tcp": "owserver 1-Wire (set port number to expose to LAN)"
 uart: true
+usb: true
 options:
   devices:
     - device_type: device_type
