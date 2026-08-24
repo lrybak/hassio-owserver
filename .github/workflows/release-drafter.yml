@@ -21,6 +21,9 @@ jobs:
   update-release-draft:
     name: Update release draft
     runs-on: ubuntu-latest
+    # Fork PRs get a read-only GITHUB_TOKEN, so release-drafter can't create/update
+    # the draft release or apply labels — skip rather than fail the check.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: 📝 Update release draft
         uses: release-drafter/release-drafter@v7
