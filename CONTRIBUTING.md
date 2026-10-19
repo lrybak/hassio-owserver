@@ -13,7 +13,7 @@ Please use one of the issue templates:
 
 1. Fork the repository
 2. Clone your fork
-3. Create a branch with a `feature/`, `fix/`, or `hotfix/` prefix
+3. Create a branch with a `feature/`, `fix/`, `hotfix/`, or `chore/` (maintenance, e.g. dependency bumps) prefix
 4. Make your changes
 5. Open a PR from your fork to the `develop` branch
 
