@@ -1,6 +1,7 @@
 # Changelog
 
 ## Unreleased
+- Bump addon base image to 21.0.8
 
 ## 0.9.2
 - Fixed: USB bus masters that use libusb (e.g. DS9490R) could not be opened, added `usb: true` (#85)
