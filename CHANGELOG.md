@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+## 0.9.2
+- Fixed: USB bus masters that use libusb (e.g. DS9490R) could not be opened, added `usb: true` (#85)
+- Bump addon base image to 21.0.2
+- Bump CI actions version, skip release-drafter for fork PRs
+
 ## 0.9.1
 - Bump addon base image to 21.0.0
 - Bump builder alpine to alpine:3.24
