@@ -48,6 +48,8 @@ autolabeler:
     files:
       - "**/Dockerfile"
       - "build.yaml"
+    branch:
+      - "/^chore\\/.+/"
   - label: "documentation"
     files:
       - "*.md"
