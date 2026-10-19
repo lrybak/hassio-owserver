@@ -91,6 +91,7 @@ If the user asks for a PR:
 - title: `Bump addon base image to X.Y.Z`
 - body: fill in `.github/pull_request_template.md`. Check only the items that were really done.
 - The branch name `chore/` gives the PR the `docker` label (release-drafter).
+- Do not merge the PR. The user always does the final merge.
 
 ## 7. Clean up
 

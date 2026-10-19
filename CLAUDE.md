@@ -79,6 +79,7 @@ When you add or change a device type, update all of these together: `config.yaml
 
 - Branch prefixes: `feature/` (new things), `fix/` (bugs and CI fixes), `chore/` (maintenance, e.g. base image bumps). PRs go to `develop` (not `master`).
 - A release is a PR from `develop` to `master` with the title `Release vX.Y.Z: merge develop into master`.
+- Never merge a PR. The maintainer always does the final merge.
 - Release notes come from PR titles and labels (release-drafter). Keep PR titles clear.
 - User docs are in `DOCS.md`.
 
