@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.9.3
 - Bump addon base image to 21.0.8
+- Bump CI actions version
 
 ## 0.9.2
 - Fixed: USB bus masters that use libusb (e.g. DS9490R) could not be opened, added `usb: true` (#85)
