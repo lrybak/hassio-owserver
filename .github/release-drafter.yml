@@ -2,44 +2,47 @@
 name-template: "Release $RESOLVED_VERSION"
 tag-template: "v$RESOLVED_VERSION"
 
+# Each category adds a patch bump, unless it sets "semver-increment".
+# PRs without a matching label also give a patch bump.
+# "exclusive" puts a PR only in the first category that matches,
+# so the order below matters.
 categories:
-  - title: "🚀 New Features"
-    labels:
-      - "feature"
-  - title: "🐛 Bug Fixes"
-    labels:
-      - "bug"
-      - "bugfix"
-      - "fix"
-  - title: "📦 Dependency Updates"
-    labels:
-      - "docker"
-  - title: "🛠️ Maintenance & CI"
-    labels:
-      - "ci"
-  - title: "📖 Documentation"
-    labels:
-      - "documentation"
+  - type: "pre-exclude"
+    when:
+      label: "skip-changelog"
   - title: "⚠️ Breaking Changes"
-    labels:
-      - "breaking-change"
+    semver-increment: "major"
+    exclusive: true
+    when:
+      label: "breaking-change"
+  - title: "🚀 New Features"
+    semver-increment: "minor"
+    exclusive: true
+    when:
+      label: "feature"
+  - title: "🐛 Bug Fixes"
+    exclusive: true
+    when:
+      labels:
+        - "bug"
+        - "bugfix"
+        - "fix"
+  - title: "📦 Dependency Updates"
+    exclusive: true
+    when:
+      label: "docker"
+  - title: "🛠️ Maintenance & CI"
+    exclusive: true
+    when:
+      label: "ci"
+  - title: "📖 Documentation"
+    exclusive: true
+    when:
+      label: "documentation"
+  - type: "version-resolver"
+    semver-increment: "patch"
 
-version-resolver:
-  major:
-    labels:
-      - "breaking-change"
-  minor:
-    labels:
-      - "feature"
-  patch:
-    labels:
-      - "bug"
-      - "bugfix"
-      - "fix"
-      - "ci"
-      - "docker"
-  default: patch
-
+# Used by the Autolabeler job in .github/workflows/release-drafter.yml.
 autolabeler:
   - label: "ci"
     files:
@@ -60,9 +63,6 @@ autolabeler:
   - label: "bug"
     branch:
       - "/^(bug)?fix\\/.+/"
-
-exclude-labels:
-  - "skip-changelog"
 
 template: |
   ## What's Changed
