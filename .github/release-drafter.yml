@@ -4,33 +4,41 @@ tag-template: "v$RESOLVED_VERSION"
 
 # Each category adds a patch bump, unless it sets "semver-increment".
 # PRs without a matching label also give a patch bump.
+# "exclusive" puts a PR only in the first category that matches,
+# so the order below matters.
 categories:
   - type: "pre-exclude"
     when:
       label: "skip-changelog"
+  - title: "⚠️ Breaking Changes"
+    semver-increment: "major"
+    exclusive: true
+    when:
+      label: "breaking-change"
   - title: "🚀 New Features"
     semver-increment: "minor"
+    exclusive: true
     when:
       label: "feature"
   - title: "🐛 Bug Fixes"
+    exclusive: true
     when:
       labels:
         - "bug"
         - "bugfix"
         - "fix"
   - title: "📦 Dependency Updates"
+    exclusive: true
     when:
       label: "docker"
   - title: "🛠️ Maintenance & CI"
+    exclusive: true
     when:
       label: "ci"
   - title: "📖 Documentation"
+    exclusive: true
     when:
       label: "documentation"
-  - title: "⚠️ Breaking Changes"
-    semver-increment: "major"
-    when:
-      label: "breaking-change"
   - type: "version-resolver"
     semver-increment: "patch"
 

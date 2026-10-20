@@ -81,7 +81,7 @@ When you add or change a device type, update all of these together: `config.yaml
 - A release is a PR from `develop` to `master` with the title `Release vX.Y.Z: merge develop into master`.
 - Never merge a PR. The maintainer always does the final merge.
 - Release notes come from PR titles and labels (release-drafter). Keep PR titles clear.
-- The autolabeler job (`.github/workflows/release-drafter.yml`) adds labels from the branch name and the changed files. Rules are in `autolabeler` in `.github/release-drafter.yml`. Check the labels on each PR and fix them by hand if needed.
+- The autolabeler job (`.github/workflows/release-drafter.yml`) adds labels from the branch name and the changed files. Rules are in `autolabeler` in `.github/release-drafter.yml`. Check the labels on each PR and fix them by hand if needed. A PR shows in the release notes only once, in the first matching category. A CI fix on a `fix/` branch also gets `bug`, so remove `bug` by hand, or it shows under "Bug Fixes".
 - User docs are in `DOCS.md`.
 
 ## Changelog and releases
