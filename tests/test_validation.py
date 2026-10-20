@@ -4,12 +4,12 @@ import pytest
 import subprocess
 import requests
 
-def make_options(devices, owhttpd=True):
+def make_options(devices, owhttpd=True, debug=True):
     return {
         "devices": devices if isinstance(devices, list) else [devices],
         "owhttpd": owhttpd,
         "temperature_scale": "Celsius",
-        "debug": True,
+        "debug": debug,
     }
 
 
@@ -72,3 +72,27 @@ class TestOwhttpd:
 
         assert "owhttpd is disabled" in logs
         assert not self.is_owhttpd_running("localhost", 8099)
+
+
+class TestOwserverErrors:
+    """Without debug, owserver must run in the foreground under s6, and its errors must be in the log."""
+
+    def test_error_is_in_log(self, start_with_config):
+        logs = start_with_config(
+            make_options({"device_type": "serial", "device": "/dev/ttyUSB9"}, debug=False),
+        )
+
+        assert "Cannot access device /dev/ttyUSB9" in logs
+        assert "owserver stopped" in logs
+        assert "Trying again in 10 seconds" in logs
+
+    def test_owserver_is_supervised(self, start_with_config, run_in_container):
+        start_with_config(make_options({"device_type": "fake"}, debug=False), wait=True)
+
+        result = run_in_container(["s6-svstat", "-o", "up,pid", "/run/service/owserver"])
+        up, pid = result.stdout.split()
+        assert up == "true"
+
+        cmdline = run_in_container(["cat", f"/proc/{pid}/cmdline"]).stdout.split("\0")
+        assert cmdline[0] == "/opt/owfs/bin/owserver"
+        assert "--foreground" in cmdline

@@ -128,6 +128,8 @@ Specify temperature scale used by owserver from the options below:
 
 Specify debug mode for owserver. _Please note that once DEBUG mode is enabled you will not be able to connect to the owserver. Use debug mode only to troubleshoot issues with 1-Wire connectivity_.
 
+Errors from owserver and owhttpd (for example, a wrong device path or a missing bus master) are always shown in the app log. Debug mode shows many more details.
+
 ## Network: Exposing owserver port to LAN
 
 By default, the owserver port (4304) is only accessible within the Home Assistant network. If you need other devices on your LAN to query owserver directly, you can optionally expose the port.
