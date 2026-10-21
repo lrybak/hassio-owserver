@@ -6,7 +6,11 @@ if ! bashio::config.true 'owhttpd'; then
 fi
 
 bashio::log.info "Wait until owserver is up and running..."
-bashio::net.wait_for 4304
+# Wait with no time limit: owhttpd stops with an error when owserver is not running.
+# (bashio::net.wait_for has a time limit, and BusyBox "timeout 0" stops at once.)
+until (echo > /dev/tcp/localhost/4304) 2>/dev/null; do
+    sleep 1
+done
 bashio::log.info "Starting owhttpd..."
 # Run in the foreground, so s6 supervises owhttpd and its errors go to the app log
 exec /opt/owfs/bin/owhttpd --foreground --error_print=2 -r -c /etc/owfs.conf
