@@ -10,24 +10,42 @@ on:
       - opened
       - reopened
       - synchronize
-      - labeled
-      - unlabeled
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   update-release-draft:
     name: Update release draft
     runs-on: ubuntu-latest
-    # Fork PRs get a read-only GITHUB_TOKEN, so release-drafter can't create/update
-    # the draft release or apply labels — skip rather than fail the check.
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+      pull-requests: read
+    # Two runs at the same time can create two drafts. Run them one by one.
+    concurrency:
+      group: release-drafter-draft
+      cancel-in-progress: false
     steps:
       - name: 📝 Update release draft
         uses: release-drafter/release-drafter@v7
         with:
           commitish: master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  autolabeler:
+    name: Label pull request
+    runs-on: ubuntu-latest
+    # Fork PRs get a read-only GITHUB_TOKEN, so labels can't be added.
+    # Skip rather than fail the check.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+      pull-requests: write
+    concurrency:
+      group: release-drafter-autolabeler-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: 🏷️ Label pull request
+        uses: release-drafter/release-drafter/autolabeler@v7

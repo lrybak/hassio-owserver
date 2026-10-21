@@ -72,7 +72,7 @@ When you add or change a device type, update all of these together: `config.yaml
 **Tests (`tests/`):**
 
 - `test_integration.py`: runs `owdir`/`owread` in the container against the `fake` DS18B20 device.
-- `test_template.py`: renders the template with a downloaded `tempio` binary on Linux (inside the container on other systems) and checks the output. It does not start owserver with each config.
+- `test_template.py`: renders the template with a downloaded `tempio` binary on Linux and macOS (inside the container on other systems) and checks the output. It does not start owserver with each config. With the local binary it does not need Docker: `pytest tests/ -m template`. `TEMPIO_VERSION` in `tests/conftest.py` should match the `tempio` in the base image.
 - `test_validation.py`: restarts the container with bad options and checks the log messages from `owserver-init`.
 
 ## Repo rules
@@ -81,6 +81,7 @@ When you add or change a device type, update all of these together: `config.yaml
 - A release is a PR from `develop` to `master` with the title `Release vX.Y.Z: merge develop into master`.
 - Never merge a PR. The maintainer always does the final merge.
 - Release notes come from PR titles and labels (release-drafter). Keep PR titles clear.
+- The autolabeler job (`.github/workflows/release-drafter.yml`) adds labels from the branch name and the changed files. Rules are in `autolabeler` in `.github/release-drafter.yml`. Check the labels on each PR and fix them by hand if needed. A PR shows in the release notes only once, in the first matching category. A CI fix on a `fix/` branch also gets `bug`, so remove `bug` by hand, or it shows under "Bug Fixes".
 - User docs are in `DOCS.md`.
 
 ## Changelog and releases
@@ -102,5 +103,16 @@ gh pr list --base develop --state merged --search "merged:>$since" \
 Release steps:
 
 1. On `develop`, rename `## Unreleased` to `## X.Y.Z`. Commit and push to `develop` directly (no extra PR, so it does not show up in the release notes).
-2. Open a PR `develop` → `master` with the title `Release vX.Y.Z: merge develop into master`.
+2. Open a PR `develop` → `master` with the title `Release vX.Y.Z: merge develop into master` and the label `skip-changelog`.
 3. After the merge, check that the release-drafter draft has the same version.
+4. Beta: create a new pre-release `vX.Y.Z-rcN` (N starts at 1) with the notes copied from the draft. Do not publish the draft itself as the beta, so the final tag stays free. `deploy.yml` sends a pre-release only to the beta channel.
+
+   ```bash
+   notes=$(gh release view vX.Y.Z --json body --jq .body)   # the draft
+   gh release create vX.Y.Z-rc1 --prerelease --target master \
+     --title "Release X.Y.Z-rc1" --notes "$notes"
+   ```
+
+5. Final: after the beta is tested, publish the draft `vX.Y.Z`. `deploy.yml` sends it to the beta and stable channels.
+
+Publishing a release is the maintainer's decision. Ask before you publish a beta or a final release. Release-drafter skips pre-releases when it looks for the previous release, so the next draft compares with the last final release.

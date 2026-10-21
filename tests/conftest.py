@@ -14,7 +14,7 @@ import pytest
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 DEV_DIR = PROJECT_DIR / "dev"
 TEMPLATE_PATH = PROJECT_DIR / "rootfs" / "etc" / "owfs.template.conf"
-TEMPIO_VERSION = "2024.11.2"
+TEMPIO_VERSION = "2026.07.0"  # same version as in the base image from build.yaml
 COMPOSE_CMD = ["docker", "compose", "-p", "owserver-test", "-f", str(DEV_DIR / "docker-compose.dev.yml")]
 CONTAINER = "owserver-test-owserver-1"
 OWSERVER = "localhost:4304"
@@ -103,15 +103,21 @@ def run_in_container(compose_project):
     return _run
 
 
-TEMPIO_ARCH_MAP = {"x86_64": "amd64", "aarch64": "aarch64"}
+# (sys.platform, platform.machine()) -> name suffix of the tempio release binary
+TEMPIO_BINARY_MAP = {
+    ("linux", "x86_64"): "amd64",
+    ("linux", "aarch64"): "aarch64",
+    ("darwin", "x86_64"): "darwin_amd64",
+    ("darwin", "arm64"): "darwin_arm64",
+}
 
 
 def _download_tempio(tmp_path_factory) -> Path | None:
-    """Download tempio binary for current Linux arch (for CI)."""
-    arch = TEMPIO_ARCH_MAP.get(platform.machine())
-    if arch is None:
+    """Download tempio binary for the current OS and arch (Linux or macOS)."""
+    suffix = TEMPIO_BINARY_MAP.get((sys.platform, platform.machine()))
+    if suffix is None:
         return None
-    url = f"https://github.com/home-assistant/tempio/releases/download/{TEMPIO_VERSION}/tempio_{arch}"
+    url = f"https://github.com/home-assistant/tempio/releases/download/{TEMPIO_VERSION}/tempio_{suffix}"
     binary = tmp_path_factory.mktemp("bin") / "tempio"
     urllib.request.urlretrieve(url, binary)
     binary.chmod(0o755)
@@ -133,7 +139,7 @@ def _render_with_binary(tempio_bin: Path, options: dict) -> str:
 
 
 def _render_with_container(options: dict) -> str:
-    """Render template using tempio inside the owserver container (fallback for macOS)."""
+    """Render template using tempio inside the owserver container (fallback for other systems)."""
     result = subprocess.run(
         ["docker", "exec", "-i", CONTAINER,
          "tempio", "-conf", "/dev/stdin",
@@ -148,19 +154,22 @@ def _render_with_container(options: dict) -> str:
 
 @pytest.fixture(scope="session")
 def tempio_bin(tmp_path_factory):
-    """Download tempio binary on Linux, skip on other platforms."""
-    if sys.platform == "linux":
-        return _download_tempio(tmp_path_factory)
-    return None
+    """Download tempio binary on Linux and macOS, None on other platforms."""
+    return _download_tempio(tmp_path_factory)
 
 
 @pytest.fixture
-def render_template(tempio_bin, compose_project):
-    """Render owfs.template.conf — local binary on Linux, container as fallback."""
+def render_template(request, tempio_bin):
+    """Render owfs.template.conf — local binary on Linux and macOS, container as fallback.
+
+    The container is started only for the fallback, so template tests with a local binary do not need Docker.
+    """
     if tempio_bin is not None:
         def _render(options: dict) -> str:
             return _render_with_binary(tempio_bin, options)
     else:
+        request.getfixturevalue("compose_project")
+
         def _render(options: dict) -> str:
             return _render_with_container(options)
     return _render
