@@ -72,7 +72,7 @@ When you add or change a device type, update all of these together: `config.yaml
 **Tests (`tests/`):**
 
 - `test_integration.py`: runs `owdir`/`owread` in the container against the `fake` DS18B20 device.
-- `test_template.py`: renders the template with a downloaded `tempio` binary on Linux (inside the container on other systems) and checks the output. It does not start owserver with each config.
+- `test_template.py`: renders the template with a downloaded `tempio` binary on Linux and macOS (inside the container on other systems) and checks the output. It does not start owserver with each config. With the local binary it does not need Docker: `pytest tests/ -m template`. `TEMPIO_VERSION` in `tests/conftest.py` should match the `tempio` in the base image.
 - `test_validation.py`: restarts the container with bad options and checks the log messages from `owserver-init`.
 
 ## Repo rules
