@@ -1,9 +1,7 @@
 # Changelog
 
-## Unreleased
-- Fixed: owserver and owhttpd errors were not shown in the app log. Both now run in the foreground, and if one stops, it is started again after 10 seconds (#96)
-
 ## 0.9.3
+- Fixed: owserver and owhttpd errors were not shown in the app log. Both now run in the foreground, and if one stops, it is started again after 10 seconds (#96)
 - Bump addon base image to 21.0.8
 - Bump CI actions version
 
