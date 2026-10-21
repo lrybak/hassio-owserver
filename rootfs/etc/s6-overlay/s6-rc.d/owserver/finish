@@ -1,0 +1,24 @@
+#!/command/with-contenv bashio
+# s6 runs this script in the service directory when owserver stops.
+# If owserver stopped by itself (for example, it cannot open the bus master), s6 still wants it up.
+# Then wait before s6 starts it again, so the same error does not fill the log every second.
+# Stop waiting as soon as s6 wants the service down (the app is stopping).
+# Use "wantedup", not the exit code, to tell a crash from a normal stop: OWFS exits with 0 also on SIGTERM.
+wanted_up() {
+    [[ "$(s6-svstat -o wantedup .)" == "true" ]]
+}
+
+# ${1} is the exit code, or 256 if a signal (number in ${2}) killed the service.
+if [[ "${1}" -eq 256 ]]; then
+    reason="signal ${2}"
+else
+    reason="exit code ${1}"
+fi
+
+if wanted_up; then
+    bashio::log.warning "owserver stopped (${reason}). Trying again in 10 seconds..."
+    for _ in {1..10}; do
+        wanted_up || break
+        sleep 1
+    done
+fi
